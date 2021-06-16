@@ -1,0 +1,5 @@
+--no-folding
+--ignore=\.git
+--ignore=\.gitmodules
+--ignore=\.stowrc
+--ignore=\.steam
