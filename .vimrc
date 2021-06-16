@@ -1,6 +1,7 @@
+set nocompatible
+
 silent! if plug#begin()
 Plug 'Vimjas/vim-python-pep8-indent', {'for': ['py']}
-Plug 'chriskempson/base16-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -8,10 +9,18 @@ Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sleuth'
 Plug 'LnL7/vim-nix', {'for': ['nix']}
 if has('nvim')
+Plug 'chriskempson/base16-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-endif
 Plug 'dense-analysis/ale'
+endif
 call plug#end()
+else
+  if has('autocmd')
+    filetype plugin indent on
+  endif
+  if has('syntax')
+    syntax enable
+  endif
 endif
 
 set autoindent
