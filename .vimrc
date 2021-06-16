@@ -47,7 +47,7 @@ set shiftwidth=4
 set expandtab
 set nohlsearch
 set hidden
-set background=dark
+set background=light
 set splitright
 set splitbelow
 set wrap

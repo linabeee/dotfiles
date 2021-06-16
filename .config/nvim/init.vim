@@ -7,6 +7,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 tnoremap <Esc> <C-\><C-n>
 nmap <F2> <Plug>(coc-rename)
 
+set background=dark
 silent! colorscheme base16-monokai
 
 function! Terminal()
