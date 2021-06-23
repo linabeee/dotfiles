@@ -13,7 +13,7 @@ fi
 export NO_AT_BRIDGE=1
 export MOZ_ENABLE_WAYLAND=1
 export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npmrc"
-export TZ="Europe/London"
+export TZ=":Europe/London"
 
 [[ $- != *i* ]] && return
 

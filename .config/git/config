@@ -3,7 +3,7 @@
 [credential]
 	helper = cache
 [alias]
-	hub = !git config user.name 'Lina Bhaile' && git config user.email 36717206+linabeee@users.noreply.github.com && git config --local --get-regexp user
+	hub = !git config user.name Lina && git config user.email 36717206+linabeee@users.noreply.github.com && git config --local --get-regexp user
 	lab = !git config user.name Lina && git config user.email 4982999-flatulation@users.noreply.gitlab.com && git config --local --get-regexp user
 	ci = commit
 [pull]
