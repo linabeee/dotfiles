@@ -38,6 +38,22 @@ alias gdb='gdb -q'
 alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget-hsts"
 command -v nvim > /dev/null && alias vim=nvim
 
+red=$(echo -en '\e[31m')
+grn=$(echo -en '\e[32m')
+bold=$(echo -en '\e[1m')
+reset=$(echo -en '\e(B\e[m')
+PS1='\[$reset\]$([[ -n "$(jobs -p)" ]] && echo "&\j ")$status\w \[$grn\]\$\[$reset\] '
+precmd() {
+  local exit=$?
+  status=
+  [[ $exit -ne 0 ]] && status="${red}${exit}${reset} "
+  printf "\e]0;${PWD}\a"
+}
+PROMPT_COMMAND=precmd
+if [ -n "${SSH_CLIENT}" ]; then
+  PS1="\[$bold\]\u@\h\[$reset\] ${PS1}"
+fi
+
 nixos-update() {
   sudo nix-channel --update
   sudo nixos-rebuild switch
