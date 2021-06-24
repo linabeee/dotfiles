@@ -1,18 +1,19 @@
 set nocompatible
 
 silent! if plug#begin()
-Plug 'Vimjas/vim-python-pep8-indent', {'for': ['py']}
-Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-sleuth'
-Plug 'LnL7/vim-nix', {'for': ['nix']}
-Plug 'chriskempson/base16-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'dense-analysis/ale'
-call plug#end()
-endif
+  Plug 'Vimjas/vim-python-pep8-indent', {'for': ['py']}
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-endwise'
+  Plug 'tpope/vim-rsi'
+  Plug 'tpope/vim-sleuth'
+  Plug 'LnL7/vim-nix', {'for': ['nix']}
+  Plug 'chriskempson/base16-vim'
+  Plug 'dense-analysis/ale'
+  if executable('node')
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  endif
+call plug#end() | endif
 
 set autoindent
 set autoread
@@ -33,6 +34,7 @@ set tags=./tags;,tags
 set ttyfast
 set viminfo=
 set wildmenu
+
 set softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -43,7 +45,6 @@ set splitright
 set splitbelow
 set wrap
 set linebreak
-" set termguicolors
 set modeline
 set laststatus=1
 set clipboard+=unnamedplus
@@ -54,6 +55,12 @@ set updatetime=300
 set shortmess+=c
 set cmdheight=2
 set mouse=a
+set termguicolors
+set scrolloff=1
+
+if $TMUX
+  set notgc
+endif
 
 nnoremap j gj
 nnoremap k gk
