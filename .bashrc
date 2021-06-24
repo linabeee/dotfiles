@@ -14,6 +14,7 @@ export NO_AT_BRIDGE=1
 export MOZ_ENABLE_WAYLAND=1
 export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npmrc"
 export TZ=":Europe/London"
+export HOMEBREW_NO_ANALYTICS=1
 
 [[ $- != *i* ]] && return
 
