@@ -75,6 +75,9 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 silent! colorscheme base16-monokai
 
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
+
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
   \'rust': ['rustfmt'],
