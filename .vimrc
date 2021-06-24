@@ -8,19 +8,10 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sleuth'
 Plug 'LnL7/vim-nix', {'for': ['nix']}
-if has('nvim')
 Plug 'chriskempson/base16-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
-endif
 call plug#end()
-else
-  if has('autocmd')
-    filetype plugin indent on
-  endif
-  if has('syntax')
-    syntax enable
-  endif
 endif
 
 set autoindent
@@ -47,7 +38,7 @@ set shiftwidth=4
 set expandtab
 set nohlsearch
 set hidden
-set background=light
+set background=dark
 set splitright
 set splitbelow
 set wrap
@@ -64,6 +55,19 @@ set shortmess+=c
 set cmdheight=2
 set mouse=a
 
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+nnoremap <F1> <Nop>
+nnoremap q <Nop>
+
+autocmd FileType python setlocal softtabstop=4 shiftwidth=4
+autocmd FileType vim setlocal sts=2 sw=2
+autocmd BufWritePre * :%s/\s\+$//e
+
+silent! colorscheme base16-monokai
+
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
   \'rust': ['rustfmt'],
@@ -79,13 +83,20 @@ let g:ale_linters_explicit = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_disable_lsp = 1
 
-autocmd FileType python setlocal softtabstop=4 shiftwidth=4
-autocmd FileType vim setlocal sts=2 sw=2
-autocmd BufWritePre * :%s/\s\+$//e
+if has('nvim')
+  inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<C-g>u\<TAB>"
+  inoremap <silent><expr> <c-space> coc#refresh()
+  tnoremap <Esc> <C-\><C-n>
+  nmap <F2> <Plug>(coc-rename)
 
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
-nnoremap <F1> <Nop>
-nnoremap q <Nop>
+  function! Terminal()
+    botright new
+    terminal
+    startinsert!
+  endfunction
+
+  command! Terminal call Terminal()
+
+  autocmd TermOpen * setlocal wrap
+endif
+
