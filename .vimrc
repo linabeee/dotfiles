@@ -58,9 +58,6 @@ set mouse=a
 set termguicolors
 set scrolloff=1
 
-if $TMUX
-  set notgc
-endif
 
 nnoremap j gj
 nnoremap k gk
@@ -73,7 +70,11 @@ autocmd FileType python setlocal softtabstop=4 shiftwidth=4
 autocmd FileType vim setlocal sts=2 sw=2
 autocmd BufWritePre * :%s/\s\+$//e
 
-silent! colorscheme base16-monokai
+if $TMUX
+  set notgc
+else
+  silent! colorscheme base16-monokai
+endif
 
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
