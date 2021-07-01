@@ -42,11 +42,11 @@ red=$(echo -en '\e[31m')
 grn=$(echo -en '\e[32m')
 bold=$(echo -en '\e[1m')
 reset=$(echo -en '\e(B\e[m')
-PS1='\[$reset\]$([[ -n "$(jobs -p)" ]] && echo "&\j ")$_status\w \[$grn\]\$\[$reset\] '
+PS1='\[$reset\]$([[ -n "$(jobs -p)" ]] && echo "&\j ")\[$red\]$status\[$reset\]\w \[$grn\]\$\[$reset\] '
 precmd() {
   local exit=$?
-  _status=
-  [[ $exit -ne 0 ]] && _status="${red}${exit}${reset} "
+  status=
+  [[ $exit -ne 0 ]] && status="${exit} "
   printf "\e]0;${PWD}\a"
 }
 PROMPT_COMMAND=precmd
