@@ -3,4 +3,4 @@ export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${HOME}/.yarn/bin:${GOPATH}/b
 export PATH="${HOME}/bin:${PATH}"
 [ -n "$BASH_VERSION" ] && [ -f ~/.bashrc ] && . ~/.bashrc
 [ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ] && . "${HOME}/.nix-profile/etc/profile.d/nix.sh"
-return
+true
