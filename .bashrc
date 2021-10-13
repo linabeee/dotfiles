@@ -13,11 +13,14 @@ fi
 export NO_AT_BRIDGE=1
 export MOZ_ENABLE_WAYLAND=1
 export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npmrc"
+export NPM_CONFIG_PREFIX="${HOME}/.local"
 export TZ=":Europe/London"
 export HOMEBREW_NO_ANALYTICS=1
+export DENO_INSTALL="${HOME}/.deno"
 
 [[ $- != *i* ]] && return
 
+[[ -e '/usr/share/bash-completion/bash_completion' ]] && . /usr/share/bash-completion/bash_completion
 HISTSIZE=-1
 HISTFILE="${XDG_CACHE_HOME}/bash_history"
 HISTFILESIZE=-1
@@ -38,18 +41,24 @@ alias gdb='gdb -q'
 alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget-hsts"
 command -v nvim > /dev/null && alias vim=nvim
 
-red=$(echo -en '\e[31m')
-grn=$(echo -en '\e[32m')
-bold=$(echo -en '\e[1m')
-reset=$(echo -en '\e(B\e[m')
+#red=$(echo -en '\e[31m')
+red="$(tput setaf 1)"
+#grn=$(echo -en '\e[32m')
+grn="$(tput setaf 2)"
+#bold=$(echo -en '\e[1m')
+bold="$(tput bold)"
+#reset=$(echo -en '\e(B\e[m')
+reset="$(tput sgr0)"
 PS1='\[$reset\]$([[ -n "$(jobs -p)" ]] && echo "&\j ")\[$red\]$status\[$reset\]\w \[$grn\]\$\[$reset\] '
-precmd() {
-  local exit=$?
-  status=
-  [[ $exit -ne 0 ]] && status="${exit} "
-  printf "\e]0;${PWD}\a"
-}
-PROMPT_COMMAND=precmd
+if [[ $TERM =~ xterm ]]; then
+    precmd() {
+	local exit=$?
+	status=
+	[[ $exit -ne 0 ]] && status="${exit} "
+	printf "\e]0;${PWD}\a"
+    }
+    PROMPT_COMMAND=precmd
+fi
 if [ -n "${SSH_CLIENT}" ]; then
   PS1="\[$bold\]\u@\h\[$reset\] ${PS1}"
 fi
