@@ -10,4 +10,4 @@
 [pull]
 	rebase = false
 [init]
-	defaultBranch = default
+	defaultBranch = main
