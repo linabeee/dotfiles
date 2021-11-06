@@ -85,7 +85,8 @@ let g:ale_fixers = {
   \'haskell': ['ormolu'],
   \'python': ['black'],
   \'nix': ['nixfmt'],
-  \'go': ['gofmt']
+  \'go': ['gofmt'],
+  \'javascript': ['prettier']
   \}
 let g:ale_linters = {
   \'python': ['pyflakes']
