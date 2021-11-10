@@ -1,3 +1,4 @@
+[[ "$PROFILE_DONE" == "1" ]] || . ~/.profile
 XDG_CONFIG_HOME="${XDG_CONFIG_DIR:=$HOME/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:=$HOME/.cache}"
 GOPATH="${HOME}/go"
