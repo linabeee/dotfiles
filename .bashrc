@@ -35,6 +35,7 @@ set -o noclobber
 export QUOTING_STYLE=literal
 export LESSHISTFILE='-'
 export NODE_REPL_HISTORY="${XDG_CACHE_HOME}/node_repl_history"
+export NIX_SHELL_PRESERVE_PROMPT=1
 alias ls='ls -FHh --color=auto'
 alias userctl='systemctl --user'
 alias juserctl='journalctl --user'
@@ -63,10 +64,13 @@ fi
 if [ -n "${SSH_CLIENT}" ]; then
   PS1="\[$bold\]\u@\h\[$reset\] ${PS1}"
 fi
+if [ -n "${IN_NIX_SHELL}" ]; then
+  PS1="nix-shell:${PS1}"
+fi
 
 nixos-update() {
   sudo nix-channel --update
-  sudo nixos-rebuild switch
+  sudo nixos-rebuild --upgrade $1
   nix-channel --update
   nix-env -u
 }
