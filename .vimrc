@@ -10,6 +10,7 @@ silent! if plug#begin()
   Plug 'LnL7/vim-nix', {'for': ['nix']}
   Plug 'chriskempson/base16-vim'
   Plug 'dense-analysis/ale'
+  Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
   if executable('node')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
   endif
@@ -68,6 +69,7 @@ nnoremap q <Nop>
 
 autocmd FileType python setlocal softtabstop=4 shiftwidth=4
 autocmd FileType vim setlocal sts=2 sw=2
+autocmd FileType go setlocal noexpandtab shiftwidth=8 tabstop=8 softtabstop=8
 autocmd BufWritePre * :%s/\s\+$//e
 
 if $TMUX
@@ -84,12 +86,14 @@ let g:ale_fixers = {
   \'rust': ['rustfmt'],
   \'haskell': ['ormolu'],
   \'python': ['black'],
-  \'nix': ['nixfmt'],
+  \'nix': ['nixpkgs-fmt', 'nixfmt'],
   \'go': ['gofmt'],
   \'javascript': ['prettier']
   \}
 let g:ale_linters = {
-  \'python': ['pyflakes']
+  \'python': ['pyflakes'],
+  \'nix': ['nix'],
+  \'go': ['go build']
   \}
 let g:ale_linters_explicit = 1
 let g:ale_lint_on_text_changed = 'never'
