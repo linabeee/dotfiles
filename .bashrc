@@ -1,7 +1,6 @@
 [[ "$PROFILE_DONE" == "1" ]] || . ~/.profile
 XDG_CONFIG_HOME="${XDG_CONFIG_DIR:=$HOME/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:=$HOME/.cache}"
-GOPATH="${HOME}/go"
 if command -v nvim > /dev/null; then
     export EDITOR=nvim
 elif command -v vim > /dev/null; then
@@ -21,7 +20,6 @@ export DENO_INSTALL="${HOME}/.deno"
 
 [[ $- != *i* ]] && return
 
-[[ -e '/usr/share/bash-completion/bash_completion' ]] && . /usr/share/bash-completion/bash_completion
 HISTSIZE=-1
 HISTFILE="${XDG_CACHE_HOME}/bash_history"
 HISTFILESIZE=-1
@@ -43,13 +41,9 @@ alias gdb='gdb -q'
 alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget-hsts"
 command -v nvim > /dev/null && alias vim=nvim
 
-#red=$(echo -en '\e[31m')
 red="$(tput setaf 1)"
-#grn=$(echo -en '\e[32m')
 grn="$(tput setaf 2)"
-#bold=$(echo -en '\e[1m')
 bold="$(tput bold)"
-#reset=$(echo -en '\e(B\e[m')
 reset="$(tput sgr0)"
 PS1='\[$reset\]$([[ -n "$(jobs -p)" ]] && echo "&\j ")\[$red\]$status\[$reset\]\w \[$grn\]\$\[$reset\] '
 if [[ $TERM =~ xterm ]]; then
@@ -57,7 +51,7 @@ if [[ $TERM =~ xterm ]]; then
 	local exit=$?
 	status=
 	[[ $exit -ne 0 ]] && status="${exit} "
-	printf "\e]0;${PWD}\a"
+	printf "\e]0;%s\a" "${PWD}"
     }
     PROMPT_COMMAND=precmd
 fi
@@ -67,6 +61,11 @@ fi
 if [ -n "${IN_NIX_SHELL}" ]; then
   PS1="nix-shell:${PS1}"
 fi
+
+if [[ -e '/usr/share/bash-completion/bash_completion' ]]; then
+  . /usr/share/bash-completion/bash_completion
+fi
+[[ -n "${ASDF_DIR}" ]] && . "${ASDF_DIR}/completions/asdf.bash"
 
 nixos-update() {
   sudo nix-channel --update
