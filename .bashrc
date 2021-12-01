@@ -1,13 +1,19 @@
-[[ "$PROFILE_DONE" == "1" ]] || . ~/.profile
-XDG_CONFIG_HOME="${XDG_CONFIG_DIR:=$HOME/.config}"
-XDG_CACHE_HOME="${XDG_CACHE_HOME:=$HOME/.cache}"
+export GOPATH="${HOME}/go"
+export PATH="\
+${HOME}/bin:\
+${HOME}/.local/bin:\
+${HOME}/.cargo/bin:\
+${HOME}/.ghcup/bin:\
+${GOPATH}/bin:\
+/usr/local/go/bin:\
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+XDG_CONFIG_HOME="${XDG_CONFIG_DIR:=${HOME}/.config}"
+XDG_CACHE_HOME="${XDG_CACHE_HOME:=${HOME}/.cache}"
 if command -v nvim > /dev/null; then
     export EDITOR=nvim
 elif command -v vim > /dev/null; then
     export EDITOR=vim
-elif command -v nvi > /dev/null; then
-    export EDITOR=nvi
-elif command -v vi > /dev/null; then
+else
     export EDITOR=vi
 fi
 export NO_AT_BRIDGE=1
@@ -39,7 +45,7 @@ alias userctl='systemctl --user'
 alias juserctl='journalctl --user'
 alias gdb='gdb -q'
 alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget-hsts"
-command -v nvim > /dev/null && alias vim=nvim
+[[ $EDITOR == nvim ]] && alias vim=nvim
 
 red="$(tput setaf 1)"
 grn="$(tput setaf 2)"
@@ -62,10 +68,7 @@ if [ -n "${IN_NIX_SHELL}" ]; then
   PS1="nix-shell:${PS1}"
 fi
 
-if [[ -e '/usr/share/bash-completion/bash_completion' ]]; then
-  . /usr/share/bash-completion/bash_completion
-fi
-[[ -n "${ASDF_DIR}" ]] && . "${ASDF_DIR}/completions/asdf.bash"
+[[ -e ~/.nix-profile/etc/profile.d/nix.sh ]] && . ~/.nix-profile/etc/profile.d/nix.sh
 
 nixos-update() {
   sudo nix-channel --update

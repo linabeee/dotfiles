@@ -1,2 +1,0 @@
-#!/bin/sh
-[ "$PROFILE_DONE" = "1" ] || . ~/.profile
