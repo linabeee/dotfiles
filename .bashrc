@@ -1,9 +1,12 @@
-export GOPATH="${HOME}/go"
+# shellcheck shell=bash
+export GOPATH=~/go
+export DENO_INSTALL=~/.deno
 export PATH="\
 ${HOME}/bin:\
 ${HOME}/.local/bin:\
 ${HOME}/.cargo/bin:\
 ${HOME}/.ghcup/bin:\
+${DENO_INSTALL}/bin:\
 ${GOPATH}/bin:\
 /usr/local/sbin:\
 /usr/local/bin:\
@@ -14,27 +17,27 @@ ${GOPATH}/bin:\
 /usr/games:\
 /usr/local/games:\
 /snap/bin"
-XDG_CONFIG_HOME="${XDG_CONFIG_DIR:=${HOME}/.config}"
-XDG_CACHE_HOME="${XDG_CACHE_HOME:=${HOME}/.cache}"
-if command -v nvim > /dev/null; then
-    export EDITOR=nvim
-elif command -v vim > /dev/null; then
+# shellcheck disable=1090
+[[ -e ~/.nix-profile/etc/profile.d/nix.sh ]] && . ~/.nix-profile/etc/profile.d/nix.sh
+if command -v vim > /dev/null; then
     export EDITOR=vim
+elif command -v nvim > /dev/null; then
+    export EDITOR=nvim
 else
     export EDITOR=vi
 fi
+export NIX_SHELL_PRESERVE_PROMPT=1
 export NO_AT_BRIDGE=1
 export MOZ_ENABLE_WAYLAND=1
-export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npmrc"
-export NPM_CONFIG_PREFIX="${HOME}/.local"
+export NPM_CONFIG_USERCONFIG=~/.config/npmrc
+export NPM_CONFIG_PREFIX=~/.local
 export TZ=":Europe/London"
 export HOMEBREW_NO_ANALYTICS=1
-export DENO_INSTALL="${HOME}/.deno"
 
 [[ $- != *i* ]] && return
 
 HISTSIZE=-1
-HISTFILE="${XDG_CACHE_HOME}/bash_history"
+HISTFILE=~/.cache/bash_history
 HISTFILESIZE=-1
 HISTCONTROL="ignoreboth"
 unset MAILCHECK
@@ -45,14 +48,13 @@ shopt -s no_empty_cmd_completion
 set -o noclobber
 export QUOTING_STYLE=literal
 export LESSHISTFILE='-'
-export NODE_REPL_HISTORY="${XDG_CACHE_HOME}/node_repl_history"
-export NIX_SHELL_PRESERVE_PROMPT=1
+export NODE_REPL_HISTORY=~/.cache/node_repl_history
 alias ls='ls -FHh --color=auto'
 alias userctl='systemctl --user'
 alias juserctl='journalctl --user'
 alias gdb='gdb -q'
-alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget-hsts"
-[[ $EDITOR == nvim ]] && alias vim=nvim
+# shellcheck disable=2139
+alias wget="wget --hsts-file=${HOME}/.cache/wget-hsts"
 
 red="$(tput setaf 1)"
 grn="$(tput setaf 2)"
@@ -78,7 +80,6 @@ fi
 if [[ -s /usr/share/bash-completion/bash_completion ]]; then
     . /usr/share/bash-completion/bash_completion
 fi
-[[ -e ~/.nix-profile/etc/profile.d/nix.sh ]] && . ~/.nix-profile/etc/profile.d/nix.sh
 
 nixos-update() {
   sudo nix-channel --update
