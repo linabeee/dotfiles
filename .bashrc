@@ -5,8 +5,15 @@ ${HOME}/.local/bin:\
 ${HOME}/.cargo/bin:\
 ${HOME}/.ghcup/bin:\
 ${GOPATH}/bin:\
-/usr/local/go/bin:\
-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+/usr/local/sbin:\
+/usr/local/bin:\
+/usr/sbin:\
+/usr/bin:\
+/sbin:\
+/bin:\
+/usr/games:\
+/usr/local/games:\
+/snap/bin"
 XDG_CONFIG_HOME="${XDG_CONFIG_DIR:=${HOME}/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:=${HOME}/.cache}"
 if command -v nvim > /dev/null; then
@@ -68,6 +75,9 @@ if [ -n "${IN_NIX_SHELL}" ]; then
   PS1="nix-shell:${PS1}"
 fi
 
+if [[ -s /usr/share/bash-completion/bash_completion ]]; then
+    . /usr/share/bash-completion/bash_completion
+fi
 [[ -e ~/.nix-profile/etc/profile.d/nix.sh ]] && . ~/.nix-profile/etc/profile.d/nix.sh
 
 nixos-update() {
