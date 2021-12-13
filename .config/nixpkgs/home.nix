@@ -27,4 +27,17 @@
       diff = "diff ':!package-lock.json' ':!yarn.lock' ':!pnpm-lock.yaml'";
     };
   };
+
+  programs.tmux = {
+    enable = true;
+    baseIndex = 1;
+    escapeTime = 0;
+    extraConfig = ''
+      set -g set-titles on
+      set -g mouse on
+      set -g status-style bg=brightblack,fg=default
+      set -g status-right "#{?window_bigger,[#{window_offset_x}#,#{window_offset_y}] ,}#{=21:pane_title}"
+      setw -g mode-keys vi
+    '';
+  };
 }
