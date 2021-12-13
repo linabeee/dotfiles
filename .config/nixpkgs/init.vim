@@ -31,6 +31,7 @@ set updatetime=300
 set shortmess+=c
 set mouse=a
 set scrolloff=1
+set cmdheight=2
 
 silent! colorscheme dim
 if has('gui')
@@ -55,12 +56,16 @@ autocmd FileType * setl sts=4 sw=4
 autocmd FileType vim setlocal sts=2 sw=2
 autocmd FileType go setlocal noexpandtab shiftwidth=8 tabstop=8 softtabstop=8
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+autocmd VimEnter * set laststatus=1
 
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
+let g:polyglot_disabled = ['sensible']
+
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_linters = {'perl': ['perl', 'perlcritic']}
 let g:ale_fixers = {
   \'*': ['remove_trailing_lines', 'trim_whitespace'],
   \'rust': ['rustfmt'],
@@ -68,7 +73,8 @@ let g:ale_fixers = {
   \'python': ['black'],
   \'nix': ['nixpkgs-fmt'],
   \'go': ['gofmt'],
-  \'javascript': ['prettier']
+  \'javascript': ['prettier'],
+  \'perl': ['perltidy']
   \}
 
 let g:buftabline_show = 1
