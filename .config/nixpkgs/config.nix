@@ -1,11 +1,10 @@
 {
   allowUnfree = true;
   packageOverrides = pkgs:
-    with pkgs; {
-      neovim = neovim.overrideAttrs (_: { wrapRc = false; });
-      discord = discord.override {
-        lib = lib // {
-          makeLibraryPath = xs: lib.makeLibraryPath (xs ++ [ libunity ]);
+    {
+      discord = pkgs.discord.override {
+        lib = pkgs.lib // {
+          makeLibraryPath = xs: pkgs.lib.makeLibraryPath (xs ++ [ pkgs.libunity ]);
         };
       };
     };

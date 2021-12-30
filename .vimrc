@@ -1,5 +1,16 @@
 set nocompatible
 
+silent! if plug#begin()
+Plug 'jeffkreeftmeijer/vim-dim'
+Plug 'ap/vim-buftabline'
+Plug 'tpope/vim-commentary'
+Plug 'dense-analysis/ale'
+
+let g:polyglot_disabled = ['sensible']
+Plug 'sheerun/vim-polyglot'
+call plug#end()
+endif
+
 set autoindent
 set autoread
 set backspace=indent,eol,start
@@ -61,8 +72,6 @@ autocmd VimEnter * set laststatus=1
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
-let g:polyglot_disabled = ['sensible']
-
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = {'perl': ['perl', 'perlcritic']}
@@ -71,7 +80,7 @@ let g:ale_fixers = {
   \'rust': ['rustfmt'],
   \'haskell': ['ormolu'],
   \'python': ['black'],
-  \'nix': ['nixpkgs-fmt'],
+  \'nix': ['nixpkgs-fmt', 'nixfmt'],
   \'go': ['gofmt'],
   \'javascript': ['prettier'],
   \'perl': ['perltidy']

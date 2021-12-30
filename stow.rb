@@ -7,7 +7,7 @@ STOW_OPTIONS = %{
 --ignore=\\.gitignore
 --ignore=\\.gitmodules
 --ignore=\\.stowrc
---ignore=stow.sh
+--ignore=install.sh
 --ignore=stow.rb
 }.gsub("\n", " ")
 
@@ -54,4 +54,4 @@ end
 stow("#{STOW_OPTIONS} --ignore=\\.config .")
 
 Dir.chdir(git_root + "/.config")
-stow("-v --target=\"#{git_root}/../.config\" --no-folding .")
+stow("-v --target=\"#{git_root}/../.config\" --ignore=nixpkgs/lina-overlay --no-folding .")
