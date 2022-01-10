@@ -6,6 +6,5 @@
 	hub = !git config user.name lina && git config user.email 36717206+linabeee@users.noreply.github.com && git config --local --get-regexp user
 	ci = commit
 	st = status
-	diff = diff ':!package-lock.json' ':!yarn.lock' ':!pnpm-lock.yaml'
 [init]
 	defaultBranch = main
