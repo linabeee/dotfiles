@@ -1,15 +1,7 @@
 set nocompatible
 
-silent! if plug#begin()
-Plug 'jeffkreeftmeijer/vim-dim'
-Plug 'tpope/vim-commentary'
-Plug 'dense-analysis/ale'
-Plug 'tpope/vim-sleuth'
-Plug 'bling/vim-bufferline'
 let g:polyglot_disabled = ['sensible', 'autoindent']
-Plug 'sheerun/vim-polyglot'
-call plug#end()
-endif
+packadd vim-polyglot
 
 set autoindent
 set autoread
@@ -54,11 +46,9 @@ if has('gui')
   highlight Normal guibg=black guifg=white
 endif
 
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
-nnoremap <F1> <Nop>
+noremap j gj
+noremap k gk
+noremap <F1> <Nop>
 nnoremap q <Nop>
 nnoremap [b :bprev<CR>
 nnoremap ]b :bnext<CR>
@@ -67,14 +57,14 @@ tnoremap <Esc> <C-\><C-n>
 
 autocmd FileType * setl sts=2 sw=2
 autocmd FileType go setlocal noexpandtab shiftwidth=8 tabstop=8 softtabstop=8
-autocmd FileType html setl sts=2 sw=2
 autocmd FileType html inoremap </ </<C-X><C-O>
 
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
 let g:bufferline_echo = 0
-autocmd VimEnter * let &statusline='%<%{bufferline#refresh_status()}'.bufferline#get_status_string().' %h%m%r%=%-14.(%l,%c%)%P'
+packadd vim-bufferline
+let &statusline='%<%{bufferline#refresh_status()}'.bufferline#get_status_string().'%h%r%=%-14.(%l,%c%)%P'
 
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
@@ -89,7 +79,3 @@ let g:ale_fixers = {
   \'javascriptreact': ['prettier'],
   \'perl': ['perltidy']
   \}
-
-let g:buftabline_show = 1
-let g:buftabline_indicators = 1
-let g:buftabline_numbers = 1

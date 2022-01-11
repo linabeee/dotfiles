@@ -1,0 +1,18 @@
+[submodule ".vim/pack/plugins/vim-dim"]
+	path = .vim/pack/plugins/start/vim-dim
+	url = https://github.com/jeffkreeftmeijer/vim-dim
+[submodule ".vim/pack/plugins/vim-commentary"]
+	path = .vim/pack/plugins/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule ".vim/pack/plugins/ale"]
+	path = .vim/pack/plugins/start/ale
+	url = https://github.com/dense-analysis/ale
+[submodule ".vim/pack/plugins/vim-sleuth"]
+	path = .vim/pack/plugins/start/vim-sleuth
+	url = https://github.com/tpope/vim-sleuth
+[submodule ".vim/pack/plugins/vim-bufferline"]
+	path = .vim/pack/plugins/start/vim-bufferline
+	url = https://github.com/bling/vim-bufferline
+[submodule ".vim/pack/plugins/opt/vim-polyglot"]
+	path = .vim/pack/plugins/opt/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot
