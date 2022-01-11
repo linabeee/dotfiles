@@ -1,0 +1,13 @@
+#!/bin/sh
+set -x
+tmpdir="$(mktemp -d)"
+urls=$(curl -fsSL https://api.github.com/repos/adobe-fonts/source-code-pro/releases/latest | jq -r '.assets[].browser_download_url' || exit $?)
+otf_url=$(echo "$urls" | grep "OTF")
+var_url=$(echo "$urls" | grep "VAR-s")
+mkdir -p ~/.local/share/fonts
+curl -fSL "$otf_url" -o "${tmpdir}/otf.zip" || exit $?
+unzip -o "${tmpdir}/otf.zip" -x '__MACOSX/*' 'LICENSE.md' -d ~/.local/share/fonts/ || exit $?
+curl -fSL "$var_url" -o "${tmpdir}/var.zip" || exit $?
+unzip -o "${tmpdir}/var.zip" -x '__MACOSX/*' 'LICENSE.md' -d ~/.local/share/fonts/ || exit $?
+rm -r "$tmpdir"
+fc-cache -v

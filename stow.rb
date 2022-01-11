@@ -1,15 +1,5 @@
 #!/usr/bin/env ruby
-
-STOW_OPTIONS = %{
--R
--v
---ignore=\\.git
---ignore=\\.gitignore
---ignore=\\.gitmodules
---ignore=\\.stowrc
---ignore=install.sh
---ignore=stow.rb
-}.gsub("\n", " ")
+require "fileutils"
 
 def error(msg, code=1)
   STDERR.puts(msg)
@@ -23,7 +13,9 @@ def usage
 end
 
 def stow(args)
-  system("stow " + args) or exit $?.exitstatus
+  cmd = "stow " + args
+  STDERR.puts(cmd)
+  system(cmd) or exit $?.exitstatus
 end
 
 if $PROGRAM_NAME != __FILE__
@@ -51,7 +43,23 @@ system("stow -v -D .")
 if ARGV.include? "-D"
   exit
 end
-stow("#{STOW_OPTIONS} --ignore=\\.config .")
 
+stow(%{
+-v
+--ignore=\\.git
+--ignore=\\.gitignore
+--ignore=\\.gitmodules
+--ignore=\\.stowrc
+--ignore=\\.config
+--ignore=bin
+--ignore=install.sh
+--ignore=stow.rb
+.}.gsub("\n", " "))
+
+FileUtils.mkdir_p "#{git_root}/../.config"
 Dir.chdir(git_root + "/.config")
 stow("-v --target=\"#{git_root}/../.config\" --ignore=nixpkgs/lina-overlay --no-folding .")
+
+FileUtils.mkdir_p "#{git_root}/../bin"
+Dir.chdir(git_root + "/bin")
+stow("-v --target=\"#{git_root}/../bin\" --no-folding .")
