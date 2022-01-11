@@ -5,6 +5,7 @@ Plug 'jeffkreeftmeijer/vim-dim'
 Plug 'tpope/vim-commentary'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-sleuth'
+Plug 'bling/vim-bufferline'
 let g:polyglot_disabled = ['sensible', 'autoindent']
 Plug 'sheerun/vim-polyglot'
 call plug#end()
@@ -23,7 +24,7 @@ set smarttab
 set ttyfast
 set viminfo='0,h,n~/.cache/viminfo
 set wildmenu
-set laststatus=1
+set laststatus=2
 set expandtab
 set nohlsearch
 set hidden
@@ -42,6 +43,7 @@ set shortmess+=c
 set mouse=a
 set scrolloff=1
 set showcmd
+set cmdheight=2
 silent! set ttymouse=xterm2
 
 silent! colorscheme dim
@@ -63,14 +65,16 @@ nnoremap ]b :bnext<CR>
 cnoremap <C-g> <C-c>
 tnoremap <Esc> <C-\><C-n>
 
-autocmd FileType * setl sts=4 sw=4
-autocmd FileType vim setlocal sts=2 sw=2
+autocmd FileType * setl sts=2 sw=2
 autocmd FileType go setlocal noexpandtab shiftwidth=8 tabstop=8 softtabstop=8
 autocmd FileType html setl sts=2 sw=2
 autocmd FileType html inoremap </ </<C-X><C-O>
 
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
+
+let g:bufferline_echo = 0
+autocmd VimEnter * let &statusline='%<%{bufferline#refresh_status()}'.bufferline#get_status_string().' %h%m%r%=%-14.(%l,%c%)%P'
 
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
