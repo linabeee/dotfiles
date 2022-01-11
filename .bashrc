@@ -55,6 +55,8 @@ alias juserctl='journalctl --user'
 alias gdb='gdb -q'
 # shellcheck disable=2139
 alias wget="wget --hsts-file=${HOME}/.cache/wget-hsts"
+# shellcheck disable=2140 disable=2139
+alias ".git"="git --git-dir=${HOME}/.dotfiles --work-tree=${HOME}"
 
 red="$(tput setaf 1)"
 grn="$(tput setaf 2)"
@@ -79,6 +81,9 @@ fi
 
 if [[ -s /usr/share/bash-completion/bash_completion ]]; then
     . /usr/share/bash-completion/bash_completion
+    _completion_loader git
+    true
+    __git_complete ".git" __git_main
 fi
 
 nixos-update() {
