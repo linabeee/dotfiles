@@ -34,11 +34,17 @@ export NIX_SHELL_PRESERVE_PROMPT=1
 export NO_AT_BRIDGE=1
 export MOZ_ENABLE_WAYLAND=1
 export NPM_CONFIG_USERCONFIG=~/.config/npmrc
-export NPM_CONFIG_PREFIX=~/.local
 export TZ=":Europe/London"
 export HOMEBREW_NO_ANALYTICS=1
 export TEXMFVAR=~/.cache/texlive/texmf-var
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=${HOME}/.config/java"
+export CABAL_CONFIG=~/.config/cabal/config
+export CABAL_DIR=~/.cache/cabal
+export CONDARC=~/.config/conda/condarc
+export ELECTRUMDIR=~/.local/share/electrum
+export GTK2_RC_FILES="${HOME}/.config/gtkrc-2.0"
+export INPUTRC=~/.config/inputrc
 
 [[ $- != *i* ]] && return
 
