@@ -1,12 +1,15 @@
 # shellcheck shell=bash
+XDG_DATA_HOME=~/.local/share
 export GOPATH=~/go
 export DENO_INSTALL=~/.deno
+export RBENV_ROOT=~/.local/share/rbenv
 export PATH="\
 ${HOME}/bin:\
 ${HOME}/.local/bin:\
 ${HOME}/.cargo/bin:\
 ${HOME}/.ghcup/bin:\
 ${DENO_INSTALL}/bin:\
+${RBENV_ROOT}/bin:\
 ${GOPATH}/bin:\
 /usr/local/sbin:\
 /usr/local/bin:\
@@ -19,6 +22,7 @@ ${GOPATH}/bin:\
 /snap/bin"
 # shellcheck disable=1090
 [[ -e ~/.nix-profile/etc/profile.d/nix.sh ]] && . ~/.nix-profile/etc/profile.d/nix.sh
+command -v rbenv >/dev/null && eval "$(rbenv init -)"
 if command -v vim > /dev/null; then
     export EDITOR=vim
 elif command -v nvim > /dev/null; then
@@ -33,6 +37,8 @@ export NPM_CONFIG_USERCONFIG=~/.config/npmrc
 export NPM_CONFIG_PREFIX=~/.local
 export TZ=":Europe/London"
 export HOMEBREW_NO_ANALYTICS=1
+export TEXMFVAR=~/.cache/texlive/texmf-var
+export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 
 [[ $- != *i* ]] && return
 
