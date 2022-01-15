@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+version="$(curl -fsSL https://api.github.com/repos/docker/compose/releases/latest | jq -r '.name')"
+platform="$(uname -s)" # | tr '[:upper:'] '[:lower:]')"
+curl -fL "https://github.com/docker/compose/releases/download/${version}/docker-compose-${platform}-$(uname -m)" -o ~/bin/docker-compose
+exec chmod +x ~/bin/docker-compose

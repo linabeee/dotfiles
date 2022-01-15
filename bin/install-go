@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+if go version >/dev/null && [ "$1" != -f ]; then
+  echo "go's already installed" 2>&1
+  exit
+fi
+tmpfile="$(mktemp)"
+cleanup() {
+  rm "$tmpfile"
+}
+trap cleanup EXIT INT
+architecture="$(uname -m)"
+case $architecture in
+  "x86_64") architecture="amd64";;
+esac
+version="$(curl -fsSL https://go.dev/VERSION?m=text)"
+curl -fL "https://go.dev/dl/${version}.linux-${architecture}.tar.gz" -o "$tmpfile"
+set -x
+sudo rm -rf /usr/local/go
+sudo tar -C "/usr/local" -xzf "$tmpfile"
