@@ -1,15 +1,12 @@
 # shellcheck shell=bash
-XDG_DATA_HOME=~/.local/share
 export GOPATH=~/go
 export DENO_INSTALL=~/.deno
-export RBENV_ROOT=~/.local/share/rbenv
 export PATH="\
 ${HOME}/bin:\
 ${HOME}/.local/bin:\
 ${HOME}/.cargo/bin:\
 ${HOME}/.ghcup/bin:\
 ${DENO_INSTALL}/bin:\
-${RBENV_ROOT}/bin:\
 ${GOPATH}/bin:\
 /usr/local/sbin:\
 /usr/local/bin:\
@@ -21,12 +18,9 @@ ${GOPATH}/bin:\
 /usr/local/games:\
 /snap/bin"
 # shellcheck disable=1090
-[[ -e ~/.nix-profile/etc/profile.d/nix.sh ]] && . ~/.nix-profile/etc/profile.d/nix.sh
-command -v rbenv >/dev/null && eval "$(rbenv init -)"
+. ~/.nix-profile/etc/profile.d/nix.sh 2> /dev/null
 if command -v vim > /dev/null; then
     export EDITOR=vim
-elif command -v nvim > /dev/null; then
-    export EDITOR=nvim
 else
     export EDITOR=vi
 fi
@@ -37,13 +31,13 @@ export NPM_CONFIG_USERCONFIG=~/.config/npmrc
 export TZ=":Europe/London"
 export HOMEBREW_NO_ANALYTICS=1
 export TEXMFVAR=~/.cache/texlive/texmf-var
-export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+export RUSTUP_HOME=~/.local/share/rustup
 export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=${HOME}/.config/java"
 export CABAL_CONFIG=~/.config/cabal/config
 export CABAL_DIR=~/.cache/cabal
 export CONDARC=~/.config/conda/condarc
 export ELECTRUMDIR=~/.local/share/electrum
-export GTK2_RC_FILES="${HOME}/.config/gtkrc-2.0"
+export GTK2_RC_FILES=~/.config/gtkrc-2.0
 export INPUTRC=~/.config/inputrc
 
 [[ $- != *i* ]] && return
@@ -94,13 +88,23 @@ fi
 if [[ -s /usr/share/bash-completion/bash_completion ]]; then
     . /usr/share/bash-completion/bash_completion
     _completion_loader git
-    true
     __git_complete ".git" __git_main
 fi
 
-nixos-update() {
-  sudo nix-channel --update
-  sudo nixos-rebuild --upgrade $1
-  nix-channel --update
-  nix-env -u
+_set_gem_home() {
+    if [[ -z ${GEM_HOME+x} ]]; then
+	local gem_home
+	gem_home=$(command ruby -e 'puts Gem.user_dir')
+	export GEM_HOME=${gem_home}
+    fi
+}
+
+ruby() {
+    _set_gem_home
+    ruby "$@"
+}
+
+gem() {
+    _set_gem_home
+    gem "$@"
 }
