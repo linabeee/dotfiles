@@ -1,13 +1,18 @@
-# shellcheck shell=bash
+# shellcheck shell=bash disable=2155 disable=1090 disable=2139 disable=2140
+if [[ -z ${GEM_HOME+x} ]] && command -v gem >/dev/null; then
+    export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+fi
 export GOPATH=~/go
-export DENO_INSTALL=~/.deno
-export PATH="\
+export CARGO_HOME=~/.local/share/cargo
+PATH="\
 ${HOME}/bin:\
 ${HOME}/.local/bin:\
-${HOME}/.cargo/bin:\
-${HOME}/.ghcup/bin:\
-${DENO_INSTALL}/bin:\
-${GOPATH}/bin:\
+${CARGO_HOME}/bin:\
+${GOPATH}/bin"
+[[ -n ${GEM_HOME} ]] && PATH="${PATH}:${GEM_HOME}/bin"
+PATH="\
+${PATH}:\
+/usr/local/go/bin:\
 /usr/local/sbin:\
 /usr/local/bin:\
 /usr/sbin:\
@@ -17,7 +22,7 @@ ${GOPATH}/bin:\
 /usr/games:\
 /usr/local/games:\
 /snap/bin"
-# shellcheck disable=1090
+export PATH
 . ~/.nix-profile/etc/profile.d/nix.sh 2> /dev/null
 if command -v vim > /dev/null; then
     export EDITOR=vim
@@ -59,9 +64,7 @@ alias ls='ls -FHh --color=auto'
 alias userctl='systemctl --user'
 alias juserctl='journalctl --user'
 alias gdb='gdb -q'
-# shellcheck disable=2139
 alias wget="wget --hsts-file=${HOME}/.cache/wget-hsts"
-# shellcheck disable=2140 disable=2139
 alias ".git"="git --git-dir=${HOME}/.dotfiles --work-tree=${HOME}"
 
 red="$(tput setaf 1)"
@@ -90,21 +93,3 @@ if [[ -s /usr/share/bash-completion/bash_completion ]]; then
     _completion_loader git
     __git_complete ".git" __git_main
 fi
-
-_set_gem_home() {
-    if [[ -z ${GEM_HOME+x} ]]; then
-	local gem_home
-	gem_home=$(command ruby -e 'puts Gem.user_dir')
-	export GEM_HOME=${gem_home}
-    fi
-}
-
-ruby() {
-    _set_gem_home
-    ruby "$@"
-}
-
-gem() {
-    _set_gem_home
-    gem "$@"
-}
