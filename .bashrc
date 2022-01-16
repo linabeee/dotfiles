@@ -1,17 +1,21 @@
-# shellcheck shell=bash disable=2155 disable=1090 disable=2139 disable=2140
+#!/bin/bash
+# shellcheck disable=2155 disable=1090 disable=2139 disable=2140
 if [[ -z ${GEM_HOME+x} ]] && command -v gem >/dev/null; then
     export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
 fi
 export GOPATH=~/go
 export CARGO_HOME=~/.local/share/cargo
+export PNPM_HOME="/home/lina/.local/share/pnpm"
 PATH="\
 ${HOME}/bin:\
 ${HOME}/.local/bin:\
 ${CARGO_HOME}/bin:\
-${GOPATH}/bin"
+${PNPM_HOME}:\
+"
 [[ -n ${GEM_HOME} ]] && PATH="${PATH}:${GEM_HOME}/bin"
 PATH="\
 ${PATH}:\
+${GOPATH}/bin:\
 /usr/local/go/bin:\
 /usr/local/sbin:\
 /usr/local/bin:\
@@ -60,6 +64,7 @@ set -o noclobber
 export QUOTING_STYLE=literal
 export LESSHISTFILE='-'
 export NODE_REPL_HISTORY=~/.cache/node_repl_history
+export NIX_INSTALLER_NO_MODIFY_PROFILE=1
 alias ls='ls -FHh --color=auto'
 alias userctl='systemctl --user'
 alias juserctl='journalctl --user'
@@ -69,9 +74,10 @@ alias ".git"="git --git-dir=${HOME}/.dotfiles --work-tree=${HOME}"
 
 red="$(tput setaf 1)"
 grn="$(tput setaf 2)"
+blu="$(tput setaf 4)"
 bold="$(tput bold)"
 reset="$(tput sgr0)"
-PS1='\[$reset\]$([[ -n "$(jobs -p)" ]] && echo "&\j ")\[$red\]$status\[$reset\]\w \[$grn\]\$\[$reset\] '
+PS1='\[$reset\]$([[ -n "$(jobs -p)" ]] && echo "&\j ")\[$red\]$status\[$reset$bold$grn\]\u@\h\[$reset\]:\[$blu\]\w\[$reset\]\$ '
 if [[ $TERM =~ xterm ]]; then
     precmd() {
 	local exit=$?
@@ -80,9 +86,6 @@ if [[ $TERM =~ xterm ]]; then
 	printf "\e]0;%s\a" "${PWD}"
     }
     PROMPT_COMMAND=precmd
-fi
-if [ -n "${SSH_CLIENT}" ]; then
-  PS1="\[$bold\]\u@\h\[$reset\] ${PS1}"
 fi
 if [ -n "${IN_NIX_SHELL}" ]; then
   PS1="nix-shell:${PS1}"
@@ -93,3 +96,5 @@ if [[ -s /usr/share/bash-completion/bash_completion ]]; then
     _completion_loader git
     __git_complete ".git" __git_main
 fi
+
+return # ignore bullshit appended by scripts
