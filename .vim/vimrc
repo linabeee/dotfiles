@@ -16,7 +16,7 @@ set smarttab
 set ttyfast
 set viminfo='0,h,n~/.cache/viminfo
 set wildmenu
-set laststatus=2
+set laststatus=1
 set expandtab
 set nohlsearch
 set hidden
@@ -61,10 +61,6 @@ autocmd FileType html inoremap </ </<C-X><C-O>
 
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
-
-let g:bufferline_echo = 0
-packadd vim-bufferline
-let &statusline='%<%{bufferline#refresh_status()}'.bufferline#get_status_string().'%h%r%=%-14.(%l,%c%)%P'
 
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
