@@ -1,7 +1,15 @@
 set nocompatible
 
 let g:polyglot_disabled = ['sensible', 'autoindent']
-packadd vim-polyglot
+
+call plug#begin()
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sleuth'
+Plug 'sheerun/vim-polyglot'
+Plug 'bling/vim-bufferline'
+Plug 'dense-analysis/ale'
+Plug 'jeffkreeftmeijer/vim-dim'
+call plug#end()
 
 set autoindent
 set autoread
@@ -36,6 +44,7 @@ set mouse=a
 set scrolloff=1
 set showcmd
 set cmdheight=2
+set laststatus=1
 silent! set ttymouse=xterm2
 
 silent! colorscheme dim
