@@ -6,7 +6,7 @@ call plug#begin()
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
 Plug 'sheerun/vim-polyglot'
-Plug 'bling/vim-bufferline'
+" Plug 'bling/vim-bufferline'
 Plug 'dense-analysis/ale'
 Plug 'jeffkreeftmeijer/vim-dim'
 call plug#end()

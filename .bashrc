@@ -1,32 +1,27 @@
 #!/bin/bash
 # shellcheck disable=2155 disable=1090 disable=2139 disable=2140
+prepend() {
+    case ":${PATH}:" in
+        *:$1:*) return;;
+        *) PATH="${1}${PATH:+:${PATH}}"
+    esac
+}
 if [[ -z ${GEM_HOME+x} ]] && command -v gem >/dev/null; then
     export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+    gem_path="${GEM_HOME}/bin"
 fi
+#export CARGO_HOME=~/.local/share/cargo
 export GOPATH=~/go
-export CARGO_HOME=~/.local/share/cargo
 export PNPM_HOME="/home/lina/.local/share/pnpm"
-PATH="\
-${HOME}/bin:\
-${HOME}/.local/bin:\
-${CARGO_HOME}/bin:\
-${PNPM_HOME}:\
-"
-[[ -n ${GEM_HOME} ]] && PATH="${PATH}:${GEM_HOME}/bin"
-PATH="\
-${PATH}:\
-${GOPATH}/bin:\
-/usr/local/go/bin:\
-/usr/local/sbin:\
-/usr/local/bin:\
-/usr/sbin:\
-/usr/bin:\
-/sbin:\
-/bin:\
-/usr/games:\
-/usr/local/games:\
-/snap/bin"
-export PATH
+prepend "${GOPATH}/bin"
+if [[ -z ${GEM_HOME+x} ]] && command -v gem >/dev/null; then
+    export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+    prepend "${GEM_HOME}/bin"
+fi
+prepend "${PNPM_HOME}/bin"
+prepend "${HOME}/.cargo/bin"
+prepend "${HOME}/.local/bin"
+prepend "${HOME}/bin"
 . ~/.nix-profile/etc/profile.d/nix.sh 2> /dev/null
 if command -v vim > /dev/null; then
     export EDITOR=vim
@@ -36,18 +31,16 @@ fi
 export NIX_SHELL_PRESERVE_PROMPT=1
 export NO_AT_BRIDGE=1
 export MOZ_ENABLE_WAYLAND=1
-export NPM_CONFIG_USERCONFIG=~/.config/npmrc
 export TZ=":Europe/London"
 export HOMEBREW_NO_ANALYTICS=1
 export TEXMFVAR=~/.cache/texlive/texmf-var
-export RUSTUP_HOME=~/.local/share/rustup
 export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=${HOME}/.config/java"
 export CABAL_CONFIG=~/.config/cabal/config
 export CABAL_DIR=~/.cache/cabal
 export CONDARC=~/.config/conda/condarc
-export ELECTRUMDIR=~/.local/share/electrum
 export GTK2_RC_FILES=~/.config/gtkrc-2.0
-export INPUTRC=~/.config/inputrc
+#export RUSTUP_HOME=~/.local/share/rustup
+#export ELECTRUMDIR=~/.local/share/electrum
 
 [[ $- != *i* ]] && return
 
@@ -77,15 +70,18 @@ grn="$(tput setaf 2)"
 blu="$(tput setaf 4)"
 bold="$(tput bold)"
 reset="$(tput sgr0)"
-PS1='\[$reset\]$([[ -n "$(jobs -p)" ]] && echo "&\j ")\[$red\]$status\[$reset$bold$grn\]\u@\h\[$reset\]:\[$blu\]\w\[$reset\]\$ '
-if [[ $TERM =~ xterm ]]; then
-    precmd() {
-	local exit=$?
-	status=
-	[[ $exit -ne 0 ]] && status="${exit} "
-	printf "\e]0;%s\a" "${PWD}"
-    }
-    PROMPT_COMMAND=precmd
+PS1='\[$reset\]$([[ -n "$(jobs -p)" ]] && echo "&\j ")\[$red\]$status\[$reset\]\w \[$grn\]\$\[$reset\] '
+precmd() {
+    local exit=$?
+    status=
+    [[ $exit -ne 0 ]] && status="${exit} "
+    if [[ $TERM =~ xterm || $TERM =~ alacritty ]]; then
+        printf "\e]0;%s\a" "${PWD}"
+    fi
+}
+PROMPT_COMMAND=precmd
+if [ -n "${SSH_CLIENT}" ]; then
+  PS1="\[$bold\]\u@\h\[$reset\] ${PS1}"
 fi
 if [ -n "${IN_NIX_SHELL}" ]; then
   PS1="nix-shell:${PS1}"
