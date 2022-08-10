@@ -6,23 +6,26 @@ prepend() {
         *) PATH="${1}${PATH:+:${PATH}}"
     esac
 }
-if [[ -z ${GEM_HOME+x} ]] && command -v gem >/dev/null; then
-    export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
-    gem_path="${GEM_HOME}/bin"
-fi
-#export CARGO_HOME=~/.local/share/cargo
+export FLYCTL_INSTALL=~/.fly
 export GOPATH=~/go
-export PNPM_HOME="/home/lina/.local/share/pnpm"
+export PNPM_HOME=~/.local/share/pnpm
+export DENO_INSTALL=~/.deno
+#prepend "${HOME}/anaconda3/bin"
+prepend "${FLYCTL_INSTALL}/bin"
+prepend "${DENO_INSTALL}/bin"
 prepend "${GOPATH}/bin"
 if [[ -z ${GEM_HOME+x} ]] && command -v gem >/dev/null; then
     export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
     prepend "${GEM_HOME}/bin"
 fi
-prepend "${PNPM_HOME}/bin"
-prepend "${HOME}/.cargo/bin"
+prepend "/usr/local/go/bin"
+prepend "${HOME}/.npm/bin"
+prepend "${PNPM_HOME}"
 prepend "${HOME}/.local/bin"
+prepend "${HOME}/.cargo/bin"
 prepend "${HOME}/bin"
 . ~/.nix-profile/etc/profile.d/nix.sh 2> /dev/null
+PATH="$(printf %s "$PATH" | awk -v RS=: -v ORS= '!a[$0]++ { if (NR>1) print ":"; print $0 }')"
 if command -v vim > /dev/null; then
     export EDITOR=vim
 else
@@ -33,14 +36,9 @@ export NO_AT_BRIDGE=1
 export MOZ_ENABLE_WAYLAND=1
 export TZ=":Europe/London"
 export HOMEBREW_NO_ANALYTICS=1
-export TEXMFVAR=~/.cache/texlive/texmf-var
-export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=${HOME}/.config/java"
-export CABAL_CONFIG=~/.config/cabal/config
-export CABAL_DIR=~/.cache/cabal
-export CONDARC=~/.config/conda/condarc
 export GTK2_RC_FILES=~/.config/gtkrc-2.0
-#export RUSTUP_HOME=~/.local/share/rustup
-#export ELECTRUMDIR=~/.local/share/electrum
+export TEXMFVAR=~/.cache/texlive/texmf-var
+export NODE_REPL_HISTORY=~/.cache/node_repl_history
 
 [[ $- != *i* ]] && return
 
@@ -56,13 +54,11 @@ shopt -s no_empty_cmd_completion
 set -o noclobber
 export QUOTING_STYLE=literal
 export LESSHISTFILE='-'
-export NODE_REPL_HISTORY=~/.cache/node_repl_history
 export NIX_INSTALLER_NO_MODIFY_PROFILE=1
 alias ls='ls -FHh --color=auto'
 alias userctl='systemctl --user'
 alias juserctl='journalctl --user'
 alias gdb='gdb -q'
-alias wget="wget --hsts-file=${HOME}/.cache/wget-hsts"
 alias ".git"="git --git-dir=${HOME}/.dotfiles --work-tree=${HOME}"
 
 red="$(tput setaf 1)"

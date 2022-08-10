@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-if go version >/dev/null && [ "$1" != -f ]; then
+if command -v go > /dev/null && go version >/dev/null && [ "$1" != -f ]; then
   echo "go's already installed" 2>&1
   exit
 fi

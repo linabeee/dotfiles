@@ -1,14 +1,15 @@
 set nocompatible
 
 let g:polyglot_disabled = ['sensible', 'autoindent']
+let g:bufferline_echo = 0
 
 call plug#begin()
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
 Plug 'sheerun/vim-polyglot'
-" Plug 'bling/vim-bufferline'
 Plug 'dense-analysis/ale'
 Plug 'jeffkreeftmeijer/vim-dim'
+" Plug 'bling/vim-bufferline'
 call plug#end()
 
 set autoindent
@@ -27,7 +28,7 @@ set wildmenu
 set laststatus=1
 set expandtab
 set nohlsearch
-set hidden
+set nohidden
 set background=dark
 set splitright
 set splitbelow
@@ -44,7 +45,10 @@ set mouse=a
 set scrolloff=1
 set showcmd
 set cmdheight=2
-set laststatus=1
+set completeopt=menu,menuone,noselect
+set expandtab
+set softtabstop=2
+set shiftwidth=2
 silent! set ttymouse=xterm2
 
 silent! colorscheme dim
@@ -64,9 +68,11 @@ nnoremap ]b :bnext<CR>
 cnoremap <C-g> <C-c>
 tnoremap <Esc> <C-\><C-n>
 
-autocmd FileType * setl sts=2 sw=2
-autocmd FileType go setlocal noexpandtab shiftwidth=8 tabstop=8 softtabstop=8
-autocmd FileType html inoremap </ </<C-X><C-O>
+augroup Lina
+  autocmd!
+  " autocmd VimEnter * let &statusline='%<%{bufferline#refresh_status()}'.bufferline#get_status_string().'%h%r%=%-14.(%l,%c%)%P'
+  autocmd FileType html inoremap </ </<C-X><C-O>
+augroup END
 
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
@@ -82,5 +88,7 @@ let g:ale_fixers = {
   \'go': ['gofmt'],
   \'javascript': ['prettier'],
   \'javascriptreact': ['prettier'],
-  \'perl': ['perltidy']
+  \'perl': ['perltidy'],
+  \'html': ['prettier']
   \}
+
