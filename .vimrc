@@ -9,6 +9,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
 Plug 'jeffkreeftmeijer/vim-dim'
+Plug 'morhetz/gruvbox'
 " Plug 'bling/vim-bufferline'
 call plug#end()
 
@@ -23,7 +24,7 @@ set incsearch
 set langnoremap
 set smarttab
 set ttyfast
-set viminfo='0,h,n~/.cache/viminfo
+set viminfo='0,h ",n~/.cache/viminfo
 set wildmenu
 set laststatus=1
 set expandtab
@@ -35,7 +36,7 @@ set splitbelow
 set wrap
 set linebreak
 set modeline
-set clipboard+=unnamedplus
+" set clipboard+=unnamedplus
 set signcolumn=no
 set nobackup
 set nowritebackup
@@ -49,6 +50,8 @@ set completeopt=menu,menuone,noselect
 set expandtab
 set softtabstop=2
 set shiftwidth=2
+set ruler
+set noswapfile
 silent! set ttymouse=xterm2
 
 silent! colorscheme dim
