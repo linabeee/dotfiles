@@ -1,7 +1,6 @@
 set nocompatible
 
 let g:polyglot_disabled = ['sensible', 'autoindent']
-let g:bufferline_echo = 0
 
 call plug#begin()
 Plug 'tpope/vim-commentary'
@@ -9,8 +8,9 @@ Plug 'tpope/vim-sleuth'
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
 Plug 'jeffkreeftmeijer/vim-dim'
-Plug 'morhetz/gruvbox'
-" Plug 'bling/vim-bufferline'
+if has('gui')
+  Plug 'morhetz/gruvbox'
+endif
 call plug#end()
 
 set autoindent
@@ -59,7 +59,10 @@ if has('gui')
   set guioptions-=m
   set guioptions-=T
   set guioptions+=c
-  highlight Normal guibg=black guifg=white
+  set bg=light
+  set guifont=Menlo:h12
+  let g:gruvbox_contrast_light = 'hard'
+  silent! colorscheme gruvbox
 endif
 
 noremap j gj
@@ -69,12 +72,10 @@ nnoremap q <Nop>
 nnoremap [b :bprev<CR>
 nnoremap ]b :bnext<CR>
 cnoremap <C-g> <C-c>
-tnoremap <Esc> <C-\><C-n>
+silent! tnoremap <Esc> <C-\><C-n>
 
 augroup Lina
   autocmd!
-  " autocmd VimEnter * let &statusline='%<%{bufferline#refresh_status()}'.bufferline#get_status_string().'%h%r%=%-14.(%l,%c%)%P'
-  autocmd FileType html inoremap </ </<C-X><C-O>
 augroup END
 
 let g:html_indent_script1 = "inc"
