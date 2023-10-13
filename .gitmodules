@@ -1,0 +1,3 @@
+[submodule "/Users/lina/.local/share/nvim/site/pack/packer/start/packer.nvim"]
+	path = /Users/lina/.local/share/nvim/site/pack/packer/start/packer.nvim
+	url = https://github.com/wbthomason/packer.nvim
