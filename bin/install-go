@@ -18,7 +18,7 @@ case $os in
   "Darwin") os="darwin";;
   "Linux") os="linux";;
 esac
-version="$(curl -fsSL https://go.dev/VERSION?m=text)"
+version="$(curl -fsSL https://go.dev/VERSION?m=text | sed -ne 1p)"
 curl -fL "https://go.dev/dl/${version}.${os}-${architecture}.tar.gz" -o "$tmpfile"
 set -x
 sudo rm -rf /usr/local/go
