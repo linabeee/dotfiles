@@ -1,17 +1,7 @@
 set nocompatible
 
-let g:polyglot_disabled = ['sensible', 'autoindent']
-
-call plug#begin()
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-sleuth'
-Plug 'sheerun/vim-polyglot'
-Plug 'dense-analysis/ale'
-Plug 'jeffkreeftmeijer/vim-dim'
-if has('gui')
-  Plug 'morhetz/gruvbox'
-endif
-call plug#end()
+filetype plugin indent on
+syntax on
 
 set autoindent
 set autoread
@@ -55,7 +45,7 @@ set noswapfile
 silent! set ttymouse=xterm2
 
 silent! colorscheme dim
-if has('gui')
+if has('gui_running')
   set guioptions-=m
   set guioptions-=T
   set guioptions+=c
@@ -80,19 +70,3 @@ augroup END
 
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
-
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_linters = {'perl': ['perl', 'perlcritic']}
-let g:ale_fixers = {
-  \'rust': ['rustfmt'],
-  \'haskell': ['ormolu'],
-  \'python': ['black'],
-  \'nix': ['nixpkgs-fmt', 'nixfmt'],
-  \'go': ['gofmt'],
-  \'javascript': ['prettier'],
-  \'javascriptreact': ['prettier'],
-  \'perl': ['perltidy'],
-  \'html': ['prettier']
-  \}
-
