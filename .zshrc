@@ -1,4 +1,5 @@
 # -*- truncate-lines: nil; -*-
+fix_path
 setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt append_history
@@ -22,14 +23,19 @@ alias ".git"="git --git-dir=${HOME}/.dotfiles --work-tree=${HOME}"
 PROMPT="$( (( ${+SSH_CLIENT} )) && echo '%n@%m:')%~ $( (( ${+IN_NIX_SHELL} )) && echo 'nix-shell:')%F{green}%#%f "
 RPROMPT='%F{red}%(?..%? )%f%(1j.%j%% .)'
 autoload -Uz compinit && compinit
-bindkey -e
 bind_shit() {
+  bindkey -e
   bindkey $terminfo[kdch1] delete-char
+  # bindkey '^A' beginning-of-line
+  # bindkey '^E' end-of-line
   if autoload -Uz history-search-end; then
     zle -N history-beginning-search-backward-end history-search-end
     zle -N history-beginning-search-forward-end history-search-end
-    bindkey $terminfo[kcuu1] history-beginning-search-backward-end
-    bindkey $terminfo[kcud1] history-beginning-search-forward-end
+    bindkey '^[[A' history-beginning-search-backward-end
+    bindkey '^[[B' history-beginning-search-forward-end
   fi
 }
 bind_shit &>/dev/null
+
+# bun completions
+[ -s "/Users/lina/.bun/_bun" ] && source "/Users/lina/.bun/_bun"

@@ -104,12 +104,13 @@ cd() {
   fi >/dev/null
 }
 
-red="$(printf '\e[31m')"
-grn="$(printf '\e[32m')"
-#blu="$(tput setaf 4)"
-bold="$(printf '\e[1m')"
-reset="$(printf '\e(B\e[m')"
-PS1='\[$reset\]$([[ -z ${SSH_CLIENT+x} ]] || echo "\u@\h:")$([[ -n "$(jobs -p)" ]] && echo "%\j ")\[$red\]$status\[$grn\]$([[ -n "$IN_NIX_SHELL" ]] && echo "nix-shell:")\$\[$reset\] '
+# red="$(printf '\e[31m')"
+# grn="$(printf '\e[32m')"
+# #blu="$(tput setaf 4)"
+# bold="$(printf '\e[1m')"
+# reset="$(printf '\e(B\e[m')"
+# PS1='\[$reset\]$([[ -z ${SSH_CLIENT+x} ]] || echo "\u@\h:")$([[ -n "$(jobs -p)" ]] && echo "%\j ")\[$red\]$status\[$grn\]$([[ -n "$IN_NIX_SHELL" ]] && echo "nix-shell:")\$\[$reset\] '
+PS1='$([[ -z ${SSH_CLIENT+x} ]] || echo "\u@\h:")$([[ -n "$(jobs -p)" ]] && echo "%\j ")$status\w $([[ -n "$IN_NIX_SHELL" ]] && echo "nix-shell:")\$ '
 precmd() {
     local exit=$?
     status=

@@ -1,22 +1,27 @@
 export HOMEBREW_PREFIX="/opt/homebrew"
 tex_prefix="/usr/local/texlive/2024"
 typeset -U path
-path=(
-  ~/bin
-  ~/emacs/src
-  ~/emacs/lib-src
-  ~/.cargo/bin
-  ~/.local/bin
-  ~/.cabal/bin
-  ~/.ghcup/bin
-  ~/.bun/bin
-  ~/go/bin
-  "${tex_prefix}/bin/universal-darwin"
-  "${HOMEBREW_PREFIX}/bin"
-  "${HOMEBREW_PREFIX}/sbin"
-  /usr/local/go/bin
-  $path
-)
+fix_path() {
+  path=(
+    ~/bin
+    ~/emacs/src
+    ~/emacs/lib-src
+    ~/.cargo/bin
+    ~/.local/bin
+    ~/.cabal/bin
+    ~/.ghcup/bin
+    ~/.bun/bin
+    ~/go/bin
+    ~/.pyenv/bin
+    ~/.pyenv/shims
+    "${tex_prefix}/bin/universal-darwin"
+    # "${HOMEBREW_PREFIX}/opt/openjdk/bin"
+    "${HOMEBREW_PREFIX}/bin"
+    "${HOMEBREW_PREFIX}/sbin"
+    /usr/local/go/bin
+    $path
+  )
+}
 export MANPATH="${tex_prefix}/texmf-dist/doc/man:${HOMEBREW_PREFIX}/share/man:$MANPATH"
 export INFOPATH="${tex_prefix}/texmf-dist/doc/info:${HOMEBREW_PREFIX}/share/info:$INFOPATH"
 
@@ -38,8 +43,9 @@ setup_pyenv() {
 }
 
 setup_sdkman
-setup_nvm
+#setup_nvm
 setup_pyenv
+fix_path
 
 if (( $+commands[nvim] )); then
   export EDITOR=nvim
@@ -58,3 +64,5 @@ export NIX_SHELL_PRESERVE_PROMPT=1
 export NO_AT_BRIDGE=1
 export SHELL_SESSIONS_DISABLE=1
 export TZ="Europe/London"
+export PYTHON_BUILD_HTTP_CLIENT=curl
+

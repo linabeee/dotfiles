@@ -44,7 +44,7 @@ set ruler
 set noswapfile
 silent! set ttymouse=xterm2
 
-silent! colorscheme dim
+" silent! colorscheme dim
 if has('gui_running')
   set guioptions-=m
   set guioptions-=T
