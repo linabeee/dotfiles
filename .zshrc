@@ -37,5 +37,7 @@ bind_shit() {
 }
 bind_shit &>/dev/null
 
-# bun completions
-[ -s "/Users/lina/.bun/_bun" ] && source "/Users/lina/.bun/_bun"
+window_title() {
+  builtin echo -ne "\033]0;$PWD\007"
+}
+[[ "$TERM" =~ "xterm" || "$TERM" =~ "alacritty" ]] && add-zsh-hook precmd window_title

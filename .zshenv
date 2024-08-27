@@ -4,26 +4,26 @@ typeset -U path
 fix_path() {
   path=(
     ~/bin
-    ~/emacs/src
-    ~/emacs/lib-src
-    ~/.cargo/bin
-    ~/.local/bin
-    ~/.cabal/bin
-    ~/.ghcup/bin
-    ~/.bun/bin
-    ~/go/bin
-    ~/.pyenv/bin
-    ~/.pyenv/shims
-    "${tex_prefix}/bin/universal-darwin"
+    # ~/emacs/src
+    # ~/emacs/lib-src
+    # ~/.cargo/bin
+    # ~/.local/bin
+    # ~/.cabal/bin
+    # ~/.ghcup/bin
+    # ~/.bun/bin
+    # ~/go/bin
+    # ~/.pyenv/bin
+    # ~/.pyenv/shims
+    # "${tex_prefix}/bin/universal-darwin"
     # "${HOMEBREW_PREFIX}/opt/openjdk/bin"
-    "${HOMEBREW_PREFIX}/bin"
-    "${HOMEBREW_PREFIX}/sbin"
-    /usr/local/go/bin
+    # "${HOMEBREW_PREFIX}/bin"
+    # "${HOMEBREW_PREFIX}/sbin"
+    # /usr/local/go/bin
     $path
   )
 }
-export MANPATH="${tex_prefix}/texmf-dist/doc/man:${HOMEBREW_PREFIX}/share/man:$MANPATH"
-export INFOPATH="${tex_prefix}/texmf-dist/doc/info:${HOMEBREW_PREFIX}/share/info:$INFOPATH"
+# export MANPATH="${tex_prefix}/texmf-dist/doc/man:${HOMEBREW_PREFIX}/share/man:$MANPATH"
+# export INFOPATH="${tex_prefix}/texmf-dist/doc/info:${HOMEBREW_PREFIX}/share/info:$INFOPATH"
 
 setup_sdkman() {
     export SDKMAN_DIR="${HOME}/.sdkman"
@@ -42,9 +42,9 @@ setup_pyenv() {
     (( $+commands[pyenv] )) && eval "$(pyenv init -)"
 }
 
-setup_sdkman
+# setup_sdkman
 #setup_nvm
-setup_pyenv
+# setup_pyenv
 fix_path
 
 if (( $+commands[nvim] )); then
@@ -66,3 +66,4 @@ export SHELL_SESSIONS_DISABLE=1
 export TZ="Europe/London"
 export PYTHON_BUILD_HTTP_CLIENT=curl
 
+(( $+commands[direnv] )) && eval "$(direnv hook zsh)"

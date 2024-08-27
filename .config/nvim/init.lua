@@ -47,6 +47,6 @@ local function make_offset_callback(offset)
   end
 end
 hook_type({ "python", "java" }, make_offset_callback(4))
-hook_type({ "lua", "javascript", "sh" }, make_offset_callback(2))
+hook_type({ "lua", "javascript", "sh", "nix" }, make_offset_callback(2))
 
-vim.cmd.colorscheme("dim")
+vim.cmd.colorscheme("vim")
