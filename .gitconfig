@@ -10,6 +10,7 @@
 	emacs-devel = !git config user.name 'Lina Bhaile' && git config user.email emacs-devel@linabee.uk && git config --local --get-regexp user
 	ci = commit
 	st = status
+	c = !git commit --m '' --allow-empty-message
 [init]
 	defaultBranch = main
 [advice]
