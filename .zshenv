@@ -7,7 +7,7 @@ fix_path() {
     # ~/emacs/src
     # ~/emacs/lib-src
     # ~/.cargo/bin
-    # ~/.local/bin
+    ~/.local/bin
     # ~/.cabal/bin
     # ~/.ghcup/bin
     # ~/.bun/bin
@@ -43,17 +43,22 @@ setup_pyenv() {
 }
 
 # setup_sdkman
-#setup_nvm
-# setup_pyenv
+setup_nvm
+setup_pyenv
 fix_path
 
 if (( $+commands[nvim] )); then
-  export EDITOR=nvim
+  EDITOR=nvim
 elif (( $+commands[vim] )); then
-  export EDITOR=vim
+  EDITOR=vim
 else
-  export EDITOR=vi
+  EDITOR=vi
 fi
+if (( $+commands[emacsclient] )); then
+  export ALTERNATE_EDITOR="$EDITOR"
+  EDITOR=emacsclient
+fi
+export EDITOR
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_EMOJI=1
@@ -65,5 +70,7 @@ export NO_AT_BRIDGE=1
 export SHELL_SESSIONS_DISABLE=1
 export TZ="Europe/London"
 export PYTHON_BUILD_HTTP_CLIENT=curl
+export FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
+export LIBVIRT_DEFAULT_URI='qemu:///system'
 
 (( $+commands[direnv] )) && eval "$(direnv hook zsh)"

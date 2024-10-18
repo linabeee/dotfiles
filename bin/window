@@ -1,0 +1,19 @@
+#!/bin/sh
+exec xfreerdp \
+     /u:Docker \
+     /p:docker0 \
+     /v:192.168.122.157 \
+     +auto-reconnect \
+     +dynamic-resolution \
+     +home-drive \
+     -compression \
+     -encryption \
+     -grab-keyboard \
+     -wallpaper \
+     /cert:ignore \
+     /gfx:avc444:on \
+     /network:auto \
+     /size:1600x900 \
+     /scale:140 \
+     /scale-desktop:125 \
+     "$@"
