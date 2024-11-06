@@ -50,9 +50,9 @@ if has('gui_running')
   set guioptions-=T
   set guioptions+=c
   set bg=light
-  set guifont=Menlo:h12
+  " set guifont=Menlo:h12
   let g:gruvbox_contrast_light = 'hard'
-  silent! colorscheme gruvbox
+  " silent! colorscheme gruvbox
 endif
 
 noremap j gj
@@ -70,3 +70,16 @@ augroup END
 
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
+
+if plug#begin()
+  Plug 'tpope/vim-commentary'
+  Plug 'dense-analysis/ale'
+
+  call plug#end()
+endif
+
+let g:ale_fixers = {
+      \'*': ['remove_trailing_lines', 'trim_whitespace'],
+      \'nix': ['nixfmt'],
+      \}
+let g:ale_fix_on_save = 1

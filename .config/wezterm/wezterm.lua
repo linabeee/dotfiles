@@ -11,7 +11,7 @@ wezterm.on(
     'format-tab-title',
     function(tab, tabs, panes, config, hover, max_width)
         local pane = tab.active_pane
-        local computed_title = string.format("%d: %s", pane.pane_id, basename(pane.foreground_process_name))
+        local computed_title = string.format("%d: %s", pane.pane_id + 1, basename(pane.foreground_process_name))
         return {
             { Text = ' ' .. computed_title .. ' ' },
         }

@@ -71,6 +71,7 @@ export SHELL_SESSIONS_DISABLE=1
 export TZ="Europe/London"
 export PYTHON_BUILD_HTTP_CLIENT=curl
 export FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
-export LIBVIRT_DEFAULT_URI='qemu:///system'
+export LIBVIRT_DEFAULT_URI='qemu:///session'
+export DIRENV_WARN_TIMEOUT='1h'
 
 (( $+commands[direnv] )) && eval "$(direnv hook zsh)"

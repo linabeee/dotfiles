@@ -41,12 +41,20 @@ end
 local function make_offset_callback(offset)
   return function(...)
     local l = vim.bo
-    l.shiftwidth = 4
-    l.softtabstop = 4
+    l.shiftwidth = offset
+    l.softtabstop = offset
     l.expandtab = true
   end
 end
 hook_type({ "python", "java" }, make_offset_callback(4))
 hook_type({ "lua", "javascript", "sh", "nix" }, make_offset_callback(2))
 
-vim.cmd.colorscheme("vim")
+-- vim.cmd.colorscheme("vim")
+--
+
+local Plug = vim.fn['plug#']
+
+if vim.call("plug#begin") then
+  Plug("tpope/vim-commentary")
+  vim.call("plug#end")
+end
