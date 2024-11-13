@@ -8,9 +8,18 @@ PATH="\
 ${HOME}/bin:\
 ${HOME}/.cargo/bin:\
 ${HOME}/.local/bin:\
+${HOME}/.bun/bin:\
+${HOME}/.local/share/fnm:\
 ${PATH}"
 
-PATH="$(printf %s "$PATH" | awk -v RS=: -v ORS= '!a[$0]++ { if (NR>1) print ":"; print $0 }')"
+cleanup_PATH() {
+  PATH="$(printf %s "$PATH" \
+    | awk -v RS=: -v ORS= '!a[$0]++ { if (NR>1) print ":"; print $0 }')"
+  export PATH
+}
+trap cleanup_PATH RETURN
+
+command -v fnm >/dev/null && eval "$(fnm env)"
 
 if command -v nvim > /dev/null; then
     export EDITOR=nvim
@@ -19,7 +28,7 @@ elif command -v vim > /dev/null; then
 else
     export EDITOR=vi
 fi
-EDITOR=vi
+EDITOR="vi"
 command -v vim >/dev/null && EDITOR=vim
 export EDITOR
 export NIX_SHELL_PRESERVE_PROMPT=1
@@ -56,16 +65,7 @@ precmd() {
     local exit=$?
     status=
     [[ $exit -ne 0 ]] && status="${exit} "
-    # if [[ $TERM =~ xterm || $TERM =~ alacritty ]]; then
-    #     printf "\e]0;%s\a" "${PWD}"
-    # fi
 }
 PROMPT_COMMAND="precmd; ${PROMPT_COMMAND}"
 
 . /usr/share/bash-completion/bash_completion 2>/dev/null || :
-
-return
-
-# Local Variables:
-# truncate-lines: nil
-# End:
