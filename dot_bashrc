@@ -1,0 +1,71 @@
+#!/bin/bash
+# shellcheck disable=1091,1090,1072
+# if [[ -z ${GEM_HOME+x} ]] && command -v gem >/dev/null; then
+#     export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+#     GEM_PATH="${GEM_HOME}/bin:"
+# fi
+PATH="\
+${HOME}/bin:\
+${HOME}/.cargo/bin:\
+${HOME}/.local/bin:\
+${PATH}"
+
+PATH="$(printf %s "$PATH" | awk -v RS=: -v ORS= '!a[$0]++ { if (NR>1) print ":"; print $0 }')"
+
+if command -v nvim > /dev/null; then
+    export EDITOR=nvim
+elif command -v vim > /dev/null; then
+    export EDITOR=vim
+else
+    export EDITOR=vi
+fi
+EDITOR=vi
+command -v vim >/dev/null && EDITOR=vim
+export EDITOR
+export NIX_SHELL_PRESERVE_PROMPT=1
+export NO_AT_BRIDGE=1
+export MOZ_ENABLE_WAYLAND=1
+export TZ="Europe/London"
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_EMOJI=1
+export HOMEBREW_NO_ENV_HINTS=1
+export NIX_INSTALLER_NO_MODIFY_PROFILE=1
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export SSH_AUTH_SOCK="${HOME}/.1password/agent.sock"
+
+[[ $- != *i* ]] && return
+
+HISTSIZE=4000
+HISTFILESIZE=-1
+HISTCONTROL=ignoreboth
+unset MAILCHECK
+shopt -s checkwinsize
+shopt -s direxpand 2>/dev/null || :
+shopt -s histappend
+shopt -s no_empty_cmd_completion
+set -o noclobber
+export QUOTING_STYLE=literal
+export SYSTEMD_PAGER=
+alias ls='ls -FHh --color'
+alias userctl='systemctl --user'
+alias juserctl='journalctl --user'
+alias gdb='gdb -q'
+
+PS1='$([[ -z ${SSH_CLIENT+x} ]] || echo -n "\u@")\h $([[ -n "$(jobs -p)" ]] && echo -n "%\j ")$status\w \$$([[ "$SHLVL" -gt 1 ]] && echo -n "=$SHLVL") '
+precmd() {
+    local exit=$?
+    status=
+    [[ $exit -ne 0 ]] && status="${exit} "
+    # if [[ $TERM =~ xterm || $TERM =~ alacritty ]]; then
+    #     printf "\e]0;%s\a" "${PWD}"
+    # fi
+}
+PROMPT_COMMAND="precmd; ${PROMPT_COMMAND}"
+
+. /usr/share/bash-completion/bash_completion 2>/dev/null || :
+
+return
+
+# Local Variables:
+# truncate-lines: nil
+# End:

@@ -14,7 +14,6 @@ set incsearch
 set langnoremap
 set smarttab
 set ttyfast
-set viminfo='0,h ",n~/.cache/viminfo
 set wildmenu
 set laststatus=1
 set expandtab
@@ -43,17 +42,6 @@ set shiftwidth=2
 set ruler
 set noswapfile
 silent! set ttymouse=xterm2
-
-" silent! colorscheme dim
-if has('gui_running')
-  set guioptions-=m
-  set guioptions-=T
-  set guioptions+=c
-  set bg=light
-  " set guifont=Menlo:h12
-  let g:gruvbox_contrast_light = 'hard'
-  " silent! colorscheme gruvbox
-endif
 
 noremap j gj
 noremap k gk
