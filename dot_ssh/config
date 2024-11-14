@@ -1,9 +1,9 @@
-Host *
-	IdentityAgent ~/.1password/agent.sock
-
 Host rpi4 rpi4.lamancha-alhena.ts.net
 	User lina
 	RequestTTY yes
 	RemoteCommand tmux new -A
+
+Host *
+	IdentityAgent ~/.1password/agent.sock
 
 SetEnv LC_ALL=C.UTF-8
