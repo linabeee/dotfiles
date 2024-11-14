@@ -1,6 +1,9 @@
 Host *
 	IdentityAgent ~/.1password/agent.sock
 
-PubkeyAcceptedKeyTypes +ssh-rsa
-HostKeyAlgorithms +ssh-rsa
-SendEnv -LC_* -LANG
+Host rpi4 rpi4.lamancha-alhena.ts.net
+	User lina
+	RequestTTY yes
+	RemoteCommand tmux new -A
+
+SetEnv LC_ALL=C.UTF-8
