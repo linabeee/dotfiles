@@ -24,6 +24,7 @@
           name = "dotfiles";
           paths = with pkgs; [
             _1password-cli
+            aria2
             bun
             chezmoi
             direnv
@@ -31,21 +32,17 @@
             gitMinimal
             htop
             httpie
-            fnm
             jq
             ldns
             libarchive
             ncdu
             nix-direnv
             ripgrep
-            shellcheck
             sqlite-interactive
-            strace
             topgrade
             vim
             wget
             wl-clipboard
-            uv
             yq
           ];
         };
