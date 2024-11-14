@@ -44,6 +44,7 @@
             topgrade
             vim
             wget
+            wl-clipboard
             uv
             yq
           ];
