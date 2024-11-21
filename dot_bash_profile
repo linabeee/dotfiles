@@ -2,4 +2,3 @@
 # shellcheck disable=1091
 [[ -z ${BASH_VERSION+x} ]] && return
 . "${HOME}/.bashrc"
-return
