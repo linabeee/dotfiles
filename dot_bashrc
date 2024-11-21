@@ -10,6 +10,8 @@ ${HOME}/.cargo/bin:\
 ${HOME}/.local/bin:\
 ${HOME}/.bun/bin:\
 ${HOME}/.local/share/fnm:\
+${HOME}/.local/share/flatpak/exports/bin:\
+/var/lib/flatpak/exports/bin:\
 ${PATH}"
 
 cleanup_PATH() {
