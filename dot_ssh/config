@@ -1,5 +1,6 @@
 Host rpi4 rpi4.lamancha-alhena.ts.net
-User root # libreelec
+User root
+# libreelec
 
 Host *
 IdentityAgent ~/.1password/agent.sock
