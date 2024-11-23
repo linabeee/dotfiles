@@ -1,5 +1,6 @@
 Host rpi4 rpi4.lamancha-alhena.ts.net
-User root
+User lina
+IdentityFile ~/.ssh/rpi4
 # libreelec
 
 Host *
