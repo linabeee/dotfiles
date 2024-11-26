@@ -14,6 +14,10 @@ ${HOME}/.local/share/flatpak/exports/bin:\
 /var/lib/flatpak/exports/bin:\
 ${PATH}"
 
+if ! command -v nix >/dev/null && [[ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
+  . /home/user/.nix-profile/etc/profile.d/nix.sh
+fi
+
 cleanup_PATH() {
   PATH="$(printf %s "$PATH" \
     | awk -v RS=: -v ORS= '!a[$0]++ { if (NR>1) print ":"; print $0 }')"
