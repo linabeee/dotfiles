@@ -12,7 +12,8 @@ ${HOME}/.bun/bin:\
 ${HOME}/.local/share/fnm:\
 ${HOME}/.local/share/flatpak/exports/bin:\
 /var/lib/flatpak/exports/bin:\
-${PATH}"
+${PATH}:\
+${HOME}/go/bin"
 
 if ! command -v nix >/dev/null && [[ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
   . /home/user/.nix-profile/etc/profile.d/nix.sh
@@ -48,6 +49,8 @@ export HOMEBREW_NO_ENV_HINTS=1
 export NIX_INSTALLER_NO_MODIFY_PROFILE=1
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export SSH_AUTH_SOCK="${HOME}/.1password/agent.sock"
+export DIRENV_WAIT_TIMEOUT=0
+export NIXPKGS_ALLOW_UNFREE=1
 
 [[ $- != *i* ]] && return
 
