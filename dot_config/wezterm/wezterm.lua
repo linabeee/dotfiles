@@ -35,6 +35,7 @@ local wezterm = require 'wezterm'
 config = wezterm.config_builder()
 config.font = wezterm.font_with_fallback {
   "Iosevka Nerd Font",
+  "Monospace",
 }
 config.font_size = 11.0
 config.window_padding = {
@@ -58,7 +59,7 @@ config.background = {
 config.window_close_confirmation = "NeverPrompt"
 config.swallow_mouse_click_on_pane_focus = true
 config.window_frame = {
-  font = wezterm.font_with_fallback { "Inter Medium" },
+  font = wezterm.font_with_fallback { "Inter Medium", "Sans" },
   font_size = 10,
 }
 config.tab_bar_at_bottom = true
