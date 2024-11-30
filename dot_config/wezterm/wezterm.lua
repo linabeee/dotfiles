@@ -63,6 +63,7 @@ config.window_frame = {
   font = wezterm.font_with_fallback { "Inter Medium", "DejaVu Sans", "Sans" },
   font_size = 10,
 }
+config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 -- config.default_ssh_auth_sock = wezterm.home_dir .. "/.1password/agent.sock"
 config.ssh_domains = {
