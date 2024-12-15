@@ -70,7 +70,7 @@ alias userctl='systemctl --user'
 alias juserctl='journalctl --user'
 alias gdb='gdb -q'
 
-PS1='\[\e]0;\u@\h:\W\a\]$([[ -z ${SSH_CLIENT+x} ]] || echo -n "\u@")\h $([[ -n "$(jobs -p)" ]] && echo -n "%\j ")$status\w \$$([[ "$SHLVL" -gt 1 ]] && echo -n "=$SHLVL") '
+PS1='\[\e]0;\u@\h:\w\a\]$([[ -z ${SSH_CLIENT+x} ]] || echo -n "\u@")\h $([[ -n "$(jobs -p)" ]] && echo -n "%\j ")$status\w \$$([[ "$SHLVL" -gt 1 ]] && echo -n "=$SHLVL") '
 precmd() {
     local exit=$?
     status=
