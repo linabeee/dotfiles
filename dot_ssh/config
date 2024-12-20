@@ -4,11 +4,11 @@ IdentityFile ~/.ssh/rpi4
 # libreelec
 #
 
+Host github.com
+IdentityFile ~/.ssh/github
+RequestTTY no
+
 Host *
 AddKeysToAgent yes
 RequestTTY yes
 SetEnv LC_ALL=C.UTF-8
-
-Host github.com
-IdentityFile ~/.ssh/github
-RequestTTY no
