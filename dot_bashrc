@@ -13,6 +13,7 @@ ${HOME}/.local/share/fnm:\
 ${HOME}/.nix-profile/bin:\
 ${HOME}/.local/share/flatpak/exports/bin:\
 /var/lib/flatpak/exports/bin:\
+${HOME}/.local/share/JetBrains/Toolbox/scripts:\
 ${PATH}:\
 ${HOME}/go/bin"
 
