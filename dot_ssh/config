@@ -9,6 +9,6 @@ AddKeysToAgent yes
 RequestTTY yes
 SetEnv LC_ALL=C.UTF-8
 
-Host github
+Host github.com
 IdentityFile ~/.ssh/github
 RequestTTY no
