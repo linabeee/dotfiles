@@ -2,8 +2,13 @@ Host rpi4 rpi4.lamancha-alhena.ts.net
 User lina
 IdentityFile ~/.ssh/rpi4
 # libreelec
+#
 
 Host *
-IdentityAgent ~/.1password/agent.sock
+AddKeysToAgent yes
 RequestTTY yes
 SetEnv LC_ALL=C.UTF-8
+
+Host github
+IdentityFile ~/.ssh/github
+RequestTTY no
