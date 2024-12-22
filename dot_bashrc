@@ -4,6 +4,10 @@
 #     export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
 #     GEM_PATH="${GEM_HOME}/bin:"
 # fi
+export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+export HOMEBREW_CELLAR="${HOMEBREW_PREFIX}/Cellar"
+export HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
+
 PATH="\
 ${HOME}/bin:\
 ${HOME}/.cargo/bin:\
