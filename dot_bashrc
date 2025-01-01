@@ -78,12 +78,19 @@ alias userctl='systemctl --user'
 alias juserctl='journalctl --user'
 alias gdb='gdb -q'
 
-PS1='\[\e]0;\u@\h:\w\a\]$([[ -z ${SSH_CLIENT+x} ]] || echo -n "\u@\h ")$([[ -n "$(jobs -p)" ]] && echo -n "%\j ")$status\w/ '
+PS1='\[\e]0;\u@\h:\w\a\]'
+if [[ -n $SSH_CLIENT || -n $container ]]; then
+  PS1="$PS1"'\u@\h'
+fi
+PS1="$PS1"'$([[ -n "$(jobs -p)" ]] && echo -n "%\j ")'
 precmd() {
     local exit=$?
-    status=
-    [[ $exit -ne 0 ]] && status="${exit} "
+    ps1_status=
+    [[ $exit -ne 0 ]] && ps1_status="${exit} "
+    ps1_jobs=
+    [[ -n "$(jobs -p)" ]] && ps1_jobs='%\j '
 }
 PROMPT_COMMAND="precmd; ${PROMPT_COMMAND}"
+PS1="$PS1"'$ps1_jobs$ps1_status\w/ '
 
 . /usr/share/bash-completion/bash_completion 2>/dev/null || :
