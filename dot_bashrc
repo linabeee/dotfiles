@@ -87,10 +87,8 @@ precmd() {
     local exit=$?
     ps1_status=
     [[ $exit -ne 0 ]] && ps1_status="${exit} "
-    ps1_jobs=
-    [[ -n "$(jobs -p)" ]] && ps1_jobs='%\j '
 }
 PROMPT_COMMAND="precmd; ${PROMPT_COMMAND}"
-PS1="$PS1"'$ps1_jobs$ps1_status\w/ '
+PS1="$PS1"'$([[ -n $(jobs -p) ]] && echo -n %j\ )$ps1_status\w/ '
 
 . /usr/share/bash-completion/bash_completion 2>/dev/null || :
