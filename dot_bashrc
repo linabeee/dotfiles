@@ -87,10 +87,10 @@ alias rsync='rsync \
   --stats \
   --fsync'
 
-PS1='\[\e]0;\u@\h:\w\a\]'
-if [[ -n $SSH_CLIENT || -n $container ]]; then
-  PS1="$PS1"'\u@\h '
-fi
+ps1_host='\h'
+[[ -n $CONTAINER_ID ]] && ps1_host="$CONTAINER_ID"
+PS1='\[\e]0;\u@'"$ps1_host"':\w\a\]'
+[[ -n $SSH_CLIENT || -n $container ]] && PS1="$PS1"'\u@'"$ps1_host"' '
 PS1="$PS1"'$([[ -n "$(jobs -p)" ]] && echo -n "%\j ")'
 precmd() {
     local exit=$?
