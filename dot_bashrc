@@ -87,4 +87,3 @@ precmd() {
 PROMPT_COMMAND="precmd; ${PROMPT_COMMAND}"
 
 . /usr/share/bash-completion/bash_completion 2>/dev/null || :
-. ~/.config/op/plugins.sh 2>/dev/null || :
