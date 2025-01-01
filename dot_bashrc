@@ -101,3 +101,9 @@ PROMPT_COMMAND="precmd; ${PROMPT_COMMAND}"
 PS1="$PS1"'$ps1_status\w/ '
 
 . /usr/share/bash-completion/bash_completion 2>/dev/null || :
+
+if [[ -z $DISTROBOX_ENTER_PATH ]] && command -v distrobox-host-exec >/dev/null; then
+  command_not_found_handle() {
+    distrobox-host-exec "${@}"
+  }
+fi
