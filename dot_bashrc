@@ -77,6 +77,15 @@ alias ls='ls -FHh --color'
 alias userctl='systemctl --user'
 alias juserctl='journalctl --user'
 alias gdb='gdb -q'
+alias rsync='rsync \
+  --recursive \
+  --sparse \
+  --preallocate \
+  --progress \
+  --partial \
+  --human-readable \
+  --stats \
+  --fsync'
 
 PS1='\[\e]0;\u@\h:\w\a\]'
 if [[ -n $SSH_CLIENT || -n $container ]]; then
