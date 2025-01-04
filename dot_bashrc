@@ -24,7 +24,7 @@ ${PATH}:\
 ${HOME}/go/bin"
 
 if ! command -v nix >/dev/null && [[ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
-  . /home/user/.nix-profile/etc/profile.d/nix.sh
+  . "${HOME}"'/.nix-profile/etc/profile.d/nix.sh'
 fi
 
 cleanup_PATH() {
