@@ -14,13 +14,18 @@ ${HOME}/.cargo/bin:\
 ${HOME}/.local/bin:\
 ${HOME}/.bun/bin:\
 ${HOME}/.local/share/fnm:\
-${HOME}/.nix-profile/bin:\
 ${HOME}/.local/share/flatpak/exports/bin:\
 /var/lib/flatpak/exports/bin:\
 ${HOME}/.local/share/JetBrains/Toolbox/scripts:\
 ${HOMEBREW_PREFIX}/bin:\
 ${HOMEBREW_PREFIX}/sbin:\
+/run/host/usr/bin:\
+/run/host/usr/sbin:\
+/run/host/bin:\
+/run/host/sbin:\
 ${PATH}:\
+/sbin:\
+/usr/sbin:\
 ${HOME}/go/bin"
 
 if ! command -v nix >/dev/null; then
