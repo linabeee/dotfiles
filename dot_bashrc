@@ -1,13 +1,11 @@
 #!/bin/bash
-# shellcheck disable=1091,1090,1072
-# if [[ -z ${GEM_HOME+x} ]] && command -v gem >/dev/null; then
-#     export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
-#     GEM_PATH="${GEM_HOME}/bin:"
-# fi
-export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-export HOMEBREW_CELLAR="${HOMEBREW_PREFIX}/Cellar"
-export HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
+cleanup_PATH() {
+  PATH="$(printf %s "$PATH" \
+    | awk -v RS=: -v ORS= '!a[$0]++ { if (NR>1) print ":"; print $0 }')"
+  export PATH
+}
 
+trap cleanup_PATH RETURN
 PATH="\
 ${HOME}/bin:\
 ${HOME}/.cargo/bin:\
@@ -17,32 +15,17 @@ ${HOME}/.local/share/fnm:\
 ${HOME}/.local/share/flatpak/exports/bin:\
 /var/lib/flatpak/exports/bin:\
 ${HOME}/.local/share/JetBrains/Toolbox/scripts:\
-${HOMEBREW_PREFIX}/bin:\
-${HOMEBREW_PREFIX}/sbin:\
-/run/host/usr/bin:\
-/run/host/usr/sbin:\
-/run/host/bin:\
-/run/host/sbin:\
 ${PATH}:\
 /sbin:\
 /usr/sbin:\
 ${HOME}/go/bin"
 
-if [[ $container = flatpak ]]; then
-  export LD_LIBRARY_PATH='/run/host/usr/lib:/run/host/lib:'
-fi
-
 if ! command -v nix >/dev/null; then
-  [[ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-  [[ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]] && . "${HOME}"'/.nix-profile/etc/profile.d/nix.sh'
+  [[ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]] && \
+    . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  [[ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]] && \
+    . "${HOME}"'/.nix-profile/etc/profile.d/nix.sh'
 fi
-
-cleanup_PATH() {
-  PATH="$(printf %s "$PATH" \
-    | awk -v RS=: -v ORS= '!a[$0]++ { if (NR>1) print ":"; print $0 }')"
-  export PATH
-}
-trap cleanup_PATH RETURN
 
 command -v fnm >/dev/null && eval "$(fnm env)"
 command -v direnv >/dev/null && eval "$(direnv hook bash)"
