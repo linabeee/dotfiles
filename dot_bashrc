@@ -82,7 +82,7 @@ alias rsync='rsync \
 ps1_host='\h'
 [[ -n $CONTAINER_ID ]] && ps1_host="$CONTAINER_ID"
 PS1='\[\e]0;\u@'"$ps1_host"':\w\a\]'
-[[ -n $SSH_CLIENT || $container != 'flatpak' ]] && PS1="$PS1"'\u@'"$ps1_host"' '
+[[ -n $SSH_CLIENT || -n $container && $container != 'flatpak' ]] && PS1="$PS1"'\u@'"$ps1_host"' '
 PS1="$PS1"'$([[ -n "$(jobs -p)" ]] && echo -n "%\j ")'
 precmd() {
     local exit=$?
