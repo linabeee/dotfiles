@@ -24,7 +24,7 @@ ${PATH}:\
 ${HOME}/go/bin"
 
 if ! command -v nix >/dev/null; then
-  [[ -e '/nix/var/nix/profiles/default/etc/profile.d/' ]] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  [[ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   [[ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]] && . "${HOME}"'/.nix-profile/etc/profile.d/nix.sh'
 fi
 
@@ -38,14 +38,6 @@ trap cleanup_PATH RETURN
 command -v fnm >/dev/null && eval "$(fnm env)"
 command -v direnv >/dev/null && eval "$(direnv hook bash)"
 
-if command -v nvim > /dev/null; then
-    export EDITOR=nvim
-elif command -v vim > /dev/null; then
-    export EDITOR=vim
-else
-    export EDITOR=vi
-fi
-EDITOR="vi"
 command -v vim >/dev/null && EDITOR=vim
 export EDITOR
 export NIX_SHELL_PRESERVE_PROMPT=1
@@ -90,7 +82,7 @@ alias rsync='rsync \
 ps1_host='\h'
 [[ -n $CONTAINER_ID ]] && ps1_host="$CONTAINER_ID"
 PS1='\[\e]0;\u@'"$ps1_host"':\w\a\]'
-[[ -n $SSH_CLIENT || -n $container ]] && PS1="$PS1"'\u@'"$ps1_host"' '
+[[ -n $SSH_CLIENT || $container != 'flatpak' ]] && PS1="$PS1"'\u@'"$ps1_host"' '
 PS1="$PS1"'$([[ -n "$(jobs -p)" ]] && echo -n "%\j ")'
 precmd() {
     local exit=$?
