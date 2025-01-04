@@ -28,6 +28,10 @@ ${PATH}:\
 /usr/sbin:\
 ${HOME}/go/bin"
 
+if [[ $container = flatpak ]]; then
+  export LD_LIBRARY_PATH='/run/host/usr/lib:/run/host/lib:'
+fi
+
 if ! command -v nix >/dev/null; then
   [[ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   [[ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]] && . "${HOME}"'/.nix-profile/etc/profile.d/nix.sh'
