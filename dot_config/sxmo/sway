@@ -1,13 +1,17 @@
 # configversion: 1a60335e6ec05c931ab71abc00eabc81
+font "Sxmo 11"
 exec_always sxmo_swayinitconf.sh
 exec_always dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP
-
 include /etc/sway/config.d/*
-
 exec 'printf %s "$SWAYSOCK" > "$XDG_RUNTIME_DIR"/sxmo.swaysock'
-
 exec sxmo_hook_start.sh
-
+bindswitch lid:on exec sxmo_wm.sh dpms on
+bindswitch lid:off exec sxmo_wm.sh dpms off
+mode "menu" {
+    bindsym XF86PowerOff exec wtype -k Return
+    bindsym XF86AudioRaiseVolume exec wtype -k Up
+    bindsym XF86AudioLowerVolume exec wtype -k Down
+}
 for_window [app_id="pinentry-.*"] floating true
 for_window [app_id="foot" title=".*sxmo/modem/.*/draft.txt.*"] resize set height 25
 for_window [title="megapixels"] inhibit_idle open
@@ -18,10 +22,6 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term sxmo_terminal.sh
-set $menu bemenu-run
-
-font "Sxmo 11"
 
 input * xkb_options compose:ralt
 input type:keyboard xkb_layout gb
@@ -29,22 +29,34 @@ input type:touchpad natural_scroll enabled
 
 xwayland disable
 
-mode "menu" {
-    bindsym XF86PowerOff exec wtype -k Return
-    bindsym XF86AudioRaiseVolume exec wtype -k Up
-    bindsym XF86AudioLowerVolume exec wtype -k Down
+bar {
+    position top
+
+    status_command sxmo_status_watch.sh -o pango
+
+    pango_markup enabled
+
+    colors {
+        statusline #ffffff
+        background #000000
+        inactive_workspace #323232 #323232 #ffffff
+        font "Iosevka Term 11"
+    }
 }
 
-bindsym $mod+Return exec $term
+default_border pixel 1
+titlebar_border_thickness 1
+hide_edge_borders smart
+
+bindsym $mod+Return exec sxmo_terminal.sh
 # bindsym $mod+p exec sxmo_appmenu.sh
 bindsym $mod+p exec sxmo_appmenu.sh sys
 bindsym $mod+Tab exec sxmo_wmmenu.sh windowswitcher
 bindsym $mod+w kill
-bindsym $mod+d exec $menu
+bindsym $mod+d exec env SXMO_MENU=wofi sxmo_brun.sh
 bindsym $mod+Shift+r reload
 
 # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-floating_modifier $mod normal
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
@@ -96,9 +108,11 @@ bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen
+bindsym $mod+a focus parent
+
+floating_modifier $mod normal
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
-bindsym $mod+a focus parent
 
 # bindsym $mod+g exec sxmo_state.sh set locker
 
@@ -124,27 +138,6 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-bar {
-    position top
-
-    status_command sxmo_status_watch.sh -o pango
-
-    pango_markup enabled
-
-    colors {
-        statusline #ffffff
-        background #000000
-        inactive_workspace #323232 #323232 #ffffff
-        font "Iosevka Term 11"
-    }
-}
-
-
-default_border normal
-titlebar_border_thickness 1
-hide_edge_borders smart
-
-# Need playerctl installed and running
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioStop exec playerctl stop
 bindsym XF86AudioNext exec playerctl next
@@ -156,6 +149,3 @@ bindsym XF86MonBrightnessDown exec sxmo_brightness.sh down
 bindsym Print exec sxmo_screenshot.sh
 
 # bindsym button2 kill
-
-bindswitch lid:on exec sxmo_wm.sh dpms on
-bindswitch lid:off exec sxmo_wm.sh dpms off
