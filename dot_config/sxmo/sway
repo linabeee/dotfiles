@@ -46,7 +46,8 @@ bar {
 
 default_border pixel 1
 titlebar_border_thickness 1
-hide_edge_borders smart
+hide_edge_borders none
+smart_borders off
 
 bindsym $mod+Return exec sxmo_terminal.sh
 # bindsym $mod+p exec sxmo_appmenu.sh
