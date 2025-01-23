@@ -1,5 +1,5 @@
 [window]
-opacity = 0.91
+opacity = 0.9
 resize_increments = true
 dimensions = { columns = 100, lines = 25 }
 
@@ -7,10 +7,10 @@ dimensions = { columns = 100, lines = 25 }
 multiplier = 1
 
 [font]
-size = 10.1
+size = 10
 
 [font.normal]
-family = "Iosevka Term"
+family = "JetBrains Mono"
 
 [colors.primary]
 background = "#000000"
