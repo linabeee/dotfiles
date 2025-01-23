@@ -30,8 +30,13 @@ fi
 command -v fnm >/dev/null && eval "$(fnm env)"
 command -v direnv >/dev/null && eval "$(direnv hook bash)"
 
-command -v vim >/dev/null && EDITOR=vim
-export EDITOR
+if [[ "$TERM_PROGRAM" = vscode ]]; then
+  export EDITOR='code --wait'
+elif command -v vim >/dev/null; then
+  export EDITOR=vim
+else
+  export EDITOR=vi
+fi
 export NIX_SHELL_PRESERVE_PROMPT=1
 export NO_AT_BRIDGE=1
 export MOZ_ENABLE_WAYLAND=1
