@@ -7,10 +7,12 @@ dimensions = { columns = 100, lines = 25 }
 multiplier = 1
 
 [font]
-size = 10
+size = 9
+offset = { x = -0, y = -3 }
 
 [font.normal]
 family = "JetBrains Mono"
+style = "Medium"
 
 [colors.primary]
 background = "#000000"
