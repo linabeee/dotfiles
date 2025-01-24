@@ -76,8 +76,8 @@ alias rsync='rsync \
   --progress \
   --partial \
   --human-readable \
-  --stats \
   --fsync'
+alias tf=terraform
 
 ps1_host='\h'
 [[ -n $CONTAINER_ID ]] && ps1_host="$CONTAINER_ID"
