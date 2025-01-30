@@ -1,6 +1,6 @@
 [misc]
 pre_sudo = true
-disable = ["node", "chezmoi", "emacs", "toolbx"]
+disable = ["node", "chezmoi", "emacs", "toolbox"]
 ignore_failures = ["uv"]
 # remote_topgrades = ["toothless", "pi", "parnas"]
 # remote_topgrade_path = ".cargo/bin/topgrade"
