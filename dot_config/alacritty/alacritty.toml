@@ -1,18 +1,17 @@
 [window]
 opacity = 0.9
 resize_increments = true
-dimensions = { columns = 100, lines = 25 }
+dimensions = { columns = 100, lines = 48 }
 
 [scrolling]
 multiplier = 1
 
 [font]
 size = 9
-offset = { x = -0, y = -3 }
+offset = { x = -0, y = -2 }
 
 [font.normal]
-family = "JetBrains Mono"
-style = "Medium"
+family = "DejaVu Sans Mono"
 
 [colors.primary]
 background = "#000000"
