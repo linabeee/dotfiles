@@ -59,11 +59,12 @@ augroup END
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
-if plug#begin()
-  Plug 'tpope/vim-commentary'
-  Plug 'dense-analysis/ale'
-
-  call plug#end()
+if !has('nvim') && plug#begin()
+  silent! if plug#begin()
+    Plug 'tpope/vim-commentary'
+    Plug 'dense-analysis/ale'
+    call plug#end()
+  endif
 endif
 
 let g:ale_fixers = {
