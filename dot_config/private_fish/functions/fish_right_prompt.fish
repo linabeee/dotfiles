@@ -1,6 +1,6 @@
 function fish_right_prompt
   set -l laststatus $status
-  if ! jobs -q
+  if jobs -q
     printf '%%%s ' (jobs -p | count)
   end
   if test $laststatus -ne 0
