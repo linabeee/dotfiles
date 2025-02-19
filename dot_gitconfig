@@ -11,14 +11,8 @@
 	ci = commit
 	st = status
 	c = !git commit --m '' --allow-empty-message
+        upsub = !git submodule update --init --recursive
 [init]
 	defaultBranch = main
 [advice]
 	addIgnoredFile = true
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-[protocol "file"]
-	allow = always
